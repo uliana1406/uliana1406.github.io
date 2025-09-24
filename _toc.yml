@@ -1,0 +1,8 @@
+format: jb-book
+root: content/Lecture_1
+
+chapters:
+- file: content/Lecture_2
+- file: content/Lecture_3
+- file: content/Lecture_4
+- file: content/Lecture_5
