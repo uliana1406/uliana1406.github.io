@@ -165,7 +165,7 @@ Traceback (most recent call last):  File "/Library/Frameworks/Python.framework/V
     if await self.run_code(code, result, async_=asy):
   File "/Users/ulye_kak_raz/Desktop/pinn-course/.venv/lib/python3.10/site-packages/IPython/core/interactiveshell.py", line 3579, in run_code
     exec(code_obj, self.user_global_ns, self.user_ns)
-  File "/var/folders/qh/w33tqq7j74181hmc1ky5lm080000gn/T/ipykernel_40523/376737619.py", line 4, in <module>
+  File "/var/folders/qh/w33tqq7j74181hmc1ky5lm080000gn/T/ipykernel_51383/376737619.py", line 4, in <module>
     import torch
   File "/Users/ulye_kak_raz/Desktop/pinn-course/.venv/lib/python3.10/site-packages/torch/__init__.py", line 1477, in <module>
     from .functional import *  # noqa: F403
