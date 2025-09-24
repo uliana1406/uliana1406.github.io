@@ -1,0 +1,1566 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Introduction to Physics Informed Neural Networks (PINNs) &#8212; PINNs</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css?v=6644e6bb" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'content/Lecture_4';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Methods for Improving PINNs’ Accuracy" href="Lecture_5.html" />
+    <link rel="prev" title="Introduction to neural networks" href="Lecture_3.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="Lecture_1.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">PINNs</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="Lecture_1.html">
+                    <no title>
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="Lecture_2.html">Day 2: Fundamentals of Machine Learning</a></li>
+
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="Lecture_3.html">Introduction to neural networks</a></li>
+
+
+
+
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Introduction to Physics Informed Neural Networks (PINNs)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Lecture_5.html">Methods for Improving PINNs’ Accuracy</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/content/Lecture_4.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Introduction to Physics Informed Neural Networks (PINNs)</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#toy-problem">Toy Problem</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-setup-parameters-and-domain">Problem Setup: Parameters and Domain</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#solution-of-partial-differential-equations">Solution of Partial Differential Equations</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-driven-discovery-of-partial-differential-equations">Data-Driven Discovery of Partial Differential Equations</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#solving-parametric-problems-with-pinns">Solving parametric problems with PINNs</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nondimensionalization">Nondimensionalization</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fourier-features-encoding">Fourier Features Encoding</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#how-fourier-features-work">How Fourier Features Work</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="introduction-to-physics-informed-neural-networks-pinns">
+<h1>Introduction to Physics Informed Neural Networks (PINNs)<a class="headerlink" href="#introduction-to-physics-informed-neural-networks-pinns" title="Link to this heading">#</a></h1>
+<p>PINNs refer to a class of supervised deep learning algoritms which regulizes the learning with pyhsics by means of incorparating the governing partial differantial equations (PDE) of the respective physics.</p>
+<p>A general nonlinear partial differential equation can be expressed as:
+$<span class="math notranslate nohighlight">\(
+\dot{u} + N_\lambda[u]=0, \quad x \in \Omega, \quad t \in[0, T],
+\)</span>$</p>
+<p>where <span class="math notranslate nohighlight">\(u = \hat{u}(t,x)\)</span>, represents the hidden solution, here <span class="math notranslate nohighlight">\(\hat{[\cdot]}\)</span> is used to seperate solution from its value, <span class="math notranslate nohighlight">\(\dot{u}\)</span> is the partial derivative wrt time, <span class="math notranslate nohighlight">\(N_\lambda\)</span> is a nonlinear operator that dependents on the parameter <span class="math notranslate nohighlight">\(\lambda\)</span>, and <span class="math notranslate nohighlight">\(\Omega\)</span> is a subset of <span class="math notranslate nohighlight">\(\mathbb{R}^{D}\)</span>. A large set of physical phenomenon, such as conservation laws, diffusion processes, advection-diffusion models, and kinetic equations can be formulated by this equation.</p>
+<p>Neural networks can be universal approximators given sufficient depth and width, and PINNs leverage this idea with the governing partial differential equtions to provide framework to:</p>
+<ul class="simple">
+<li><p>Approximate the solutions of PDEs (Forward Problems)</p></li>
+<li><p>Discover the underlying PDEs (Inverse Problems)</p></li>
+<li><p>Learn the solution operator of parametric PDEs (Parametric Problems)</p></li>
+</ul>
+<section id="toy-problem">
+<h2>Toy Problem<a class="headerlink" href="#toy-problem" title="Link to this heading">#</a></h2>
+<p>Lets define a toy problem to follow these usecases. This example is inspired from Ben Moseley, you can check his blog post about PINNs here: <a class="reference external" href="https://benmoseley.blog/my-research/so-what-is-a-physics-informed-neural-network/">https://benmoseley.blog/my-research/so-what-is-a-physics-informed-neural-network/</a></p>
+<p>We consider a homogeneous soil layer. The dynamic response of a single layer soil can be simplified to be:</p>
+<p><img alt="Bild1.png" src="content/attachment:Bild1.png" /></p>
+<p>The 1 dimensional dynamic response of a homogenous soil layer can be represented by the 2nd order ordinary differential equation as:</p>
+<div class="math notranslate nohighlight">
+\[
+\ddot{u}(t) + 2\zeta\omega_0\dot{u}(t) + \omega_0^2u = - a_g~,
+\]</div>
+<p>with
+$<span class="math notranslate nohighlight">\(
+\omega_0 = \sqrt{\dfrac{k}{m}};\quad\quad \zeta = \dfrac{c}{2\,m\,\omega_0},
+\)</span>$</p>
+<p>where <span class="math notranslate nohighlight">\(u\)</span>, <span class="math notranslate nohighlight">\(\dot{u}\)</span>, <span class="math notranslate nohighlight">\(\ddot{u}\)</span>, <span class="math notranslate nohighlight">\(m\)</span>, <span class="math notranslate nohighlight">\(c\)</span>, <span class="math notranslate nohighlight">\(k\)</span>, are the horizontal displacement, velocity, acceleration, mass, damping coefficient and stiffness of the soil layer respectively, lastly <span class="math notranslate nohighlight">\(a_g\)</span> is the acceleration at the base of the soil layer.</p>
+<p>Lets simplify this even more and assume a case where <span class="math notranslate nohighlight">\(a_g = 0\)</span> with the initial conditions</p>
+<div class="math notranslate nohighlight">
+\[
+u(0) = 1~~,~~\dot{u}(0) = 0~.
+\]</div>
+<p>Then the equation becomes homogenous and for the underdamped case the exact solution can be written as</p>
+<div class="math notranslate nohighlight">
+\[
+u(t) = e^{-\zeta\omega_0 t}[\dfrac{\zeta \omega_0}{\omega_d} \sin(\omega_d t)+ \cos(\omega_d t)]~,~~~~~\mathrm{with}~~\omega_d=\omega_0\sqrt{1-\zeta^2}~.
+\]</div>
+<section id="problem-setup-parameters-and-domain">
+<h3>Problem Setup: Parameters and Domain<a class="headerlink" href="#problem-setup-parameters-and-domain" title="Link to this heading">#</a></h3>
+<p>Now we can define the parameters and the domain for the problem as follows:<br />
+Damping coefficient (<span class="math notranslate nohighlight">\(\zeta\)</span>): 0.1<br />
+Natural frequency (<span class="math notranslate nohighlight">\(\omega_0\)</span>): 20 Hz<br />
+Time domain (<span class="math notranslate nohighlight">\(t\)</span>): [0, 1]</p>
+<p>We will now try to approximate the solution of this governing differential eqaution using PINNs.</p>
+</section>
+</section>
+<section id="solution-of-partial-differential-equations">
+<h2>Solution of Partial Differential Equations<a class="headerlink" href="#solution-of-partial-differential-equations" title="Link to this heading">#</a></h2>
+<p>Solution of PDEs refers to computing the hidden state <span class="math notranslate nohighlight">\(u(t,x)\)</span> that fulfills the general partial differential equation for a given conditions and fixed <span class="math notranslate nohighlight">\(\lambda\)</span>. PINNs can approximate this solution, <span class="math notranslate nohighlight">\(\hat{u}(t, x)\)</span>, by finding the neural network <span class="math notranslate nohighlight">\(u_\theta\)</span> parametrized by the weights and biasses <span class="math notranslate nohighlight">\(\theta\)</span> of the network.</p>
+<div class="math notranslate nohighlight">
+\[
+f(t, x) = \dot{u}_\theta + N[u_\theta],
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(f(t,x)\)</span> is the residual. The solution is approximated by the deep neural network, and automatic differentiation enables the calculation of its derivatives. This residual of the partial differential equations can be added to the loss function to incorporate the physics into the learning process.</p>
+<div class="math notranslate nohighlight">
+\[
+L_{tot} = \lambda_u L_{u} + \lambda_{PDE} L_{PDE}
+\]</div>
+<p>Where <span class="math notranslate nohighlight">\(\lambda_u\)</span> and <span class="math notranslate nohighlight">\(\lambda_{PDE}\)</span> are hyperparameters that control the contribution of each loss term, <span class="math notranslate nohighlight">\(L_u\)</span> and <span class="math notranslate nohighlight">\(L_{PDE}\)</span>. <span class="math notranslate nohighlight">\(L_u\)</span> represents the supervised data loss and <span class="math notranslate nohighlight">\(L_{PDE}\)</span> represents the unsupervised physics loss. They can be stated generally as:</p>
+<div class="math notranslate nohighlight">
+\[
+L_u = \frac{1}{N_u}\sum_{i=1}^{N_u}\Vert {u_\theta(t^i, x^i) - u^i}\Vert
+\]</div>
+<p>measures the discrepancy between the PINN approximation <span class="math notranslate nohighlight">\(u_\theta(t, x)\)</span> and the given boundary and measurement data on the set <span class="math notranslate nohighlight">\(\Gamma\)</span>
+$<span class="math notranslate nohighlight">\(
+L_{PDE} = \frac{1}{N_{PDE}}\sum_{k=1}^{N_{PDE}}\Vert {f(t^k, x^k)}\Vert
+\)</span><span class="math notranslate nohighlight">\(
+is the calculation of the residuals with an arbitrary metric \)</span>\Vert \cdot \Vert<span class="math notranslate nohighlight">\(, for the set of collocation points sampled in the domain \)</span>\Omega$</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Impoting the required modules</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">torch.nn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">nn</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">PIL</span><span class="w"> </span><span class="kn">import</span> <span class="n">Image</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>A module that was compiled using NumPy 1.x cannot be run in
+NumPy 2.2.6 as it may crash. To support both 1.x and 2.x
+versions of NumPy, modules must be compiled with NumPy 2.0.
+Some module may need to rebuild instead e.g. with &#39;pybind11&gt;=2.12&#39;.
+
+If you are a user of the module, the easiest solution will be to
+downgrade to &#39;numpy&lt;2&#39; or try to upgrade the affected module.
+We expect that some modules will need time to support NumPy 2.
+
+Traceback (most recent call last):  File &quot;/Library/Frameworks/Python.framework/Versions/3.10/lib/python3.10/runpy.py&quot;, line 196, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File &quot;/Library/Frameworks/Python.framework/Versions/3.10/lib/python3.10/runpy.py&quot;, line 86, in _run_code
+    exec(code, run_globals)
+  File &quot;/Users/ulye_kak_raz/Desktop/pinn-course/.venv/lib/python3.10/site-packages/ipykernel_launcher.py&quot;, line 18, in &lt;module&gt;
+    app.launch_new_instance()
+  File &quot;/Users/ulye_kak_raz/Desktop/pinn-course/.venv/lib/python3.10/site-packages/traitlets/config/application.py&quot;, line 1075, in launch_instance
+    app.start()
+  File &quot;/Users/ulye_kak_raz/Desktop/pinn-course/.venv/lib/python3.10/site-packages/ipykernel/kernelapp.py&quot;, line 739, in start
+    self.io_loop.start()
+  File &quot;/Users/ulye_kak_raz/Desktop/pinn-course/.venv/lib/python3.10/site-packages/tornado/platform/asyncio.py&quot;, line 211, in start
+    self.asyncio_loop.run_forever()
+  File &quot;/Library/Frameworks/Python.framework/Versions/3.10/lib/python3.10/asyncio/base_events.py&quot;, line 600, in run_forever
+    self._run_once()
+  File &quot;/Library/Frameworks/Python.framework/Versions/3.10/lib/python3.10/asyncio/base_events.py&quot;, line 1896, in _run_once
+    handle._run()
+  File &quot;/Library/Frameworks/Python.framework/Versions/3.10/lib/python3.10/asyncio/events.py&quot;, line 80, in _run
+    self._context.run(self._callback, *self._args)
+  File &quot;/Users/ulye_kak_raz/Desktop/pinn-course/.venv/lib/python3.10/site-packages/ipykernel/kernelbase.py&quot;, line 519, in dispatch_queue
+    await self.process_one()
+  File &quot;/Users/ulye_kak_raz/Desktop/pinn-course/.venv/lib/python3.10/site-packages/ipykernel/kernelbase.py&quot;, line 508, in process_one
+    await dispatch(*args)
+  File &quot;/Users/ulye_kak_raz/Desktop/pinn-course/.venv/lib/python3.10/site-packages/ipykernel/kernelbase.py&quot;, line 400, in dispatch_shell
+    await result
+  File &quot;/Users/ulye_kak_raz/Desktop/pinn-course/.venv/lib/python3.10/site-packages/ipykernel/ipkernel.py&quot;, line 368, in execute_request
+    await super().execute_request(stream, ident, parent)
+  File &quot;/Users/ulye_kak_raz/Desktop/pinn-course/.venv/lib/python3.10/site-packages/ipykernel/kernelbase.py&quot;, line 767, in execute_request
+    reply_content = await reply_content
+  File &quot;/Users/ulye_kak_raz/Desktop/pinn-course/.venv/lib/python3.10/site-packages/ipykernel/ipkernel.py&quot;, line 455, in do_execute
+    res = shell.run_cell(
+  File &quot;/Users/ulye_kak_raz/Desktop/pinn-course/.venv/lib/python3.10/site-packages/ipykernel/zmqshell.py&quot;, line 577, in run_cell
+    return super().run_cell(*args, **kwargs)
+  File &quot;/Users/ulye_kak_raz/Desktop/pinn-course/.venv/lib/python3.10/site-packages/IPython/core/interactiveshell.py&quot;, line 3077, in run_cell
+    result = self._run_cell(
+  File &quot;/Users/ulye_kak_raz/Desktop/pinn-course/.venv/lib/python3.10/site-packages/IPython/core/interactiveshell.py&quot;, line 3132, in _run_cell
+    result = runner(coro)
+  File &quot;/Users/ulye_kak_raz/Desktop/pinn-course/.venv/lib/python3.10/site-packages/IPython/core/async_helpers.py&quot;, line 128, in _pseudo_sync_runner
+    coro.send(None)
+  File &quot;/Users/ulye_kak_raz/Desktop/pinn-course/.venv/lib/python3.10/site-packages/IPython/core/interactiveshell.py&quot;, line 3336, in run_cell_async
+    has_raised = await self.run_ast_nodes(code_ast.body, cell_name,
+  File &quot;/Users/ulye_kak_raz/Desktop/pinn-course/.venv/lib/python3.10/site-packages/IPython/core/interactiveshell.py&quot;, line 3519, in run_ast_nodes
+    if await self.run_code(code, result, async_=asy):
+  File &quot;/Users/ulye_kak_raz/Desktop/pinn-course/.venv/lib/python3.10/site-packages/IPython/core/interactiveshell.py&quot;, line 3579, in run_code
+    exec(code_obj, self.user_global_ns, self.user_ns)
+  File &quot;/var/folders/qh/w33tqq7j74181hmc1ky5lm080000gn/T/ipykernel_40544/2645131418.py&quot;, line 2, in &lt;module&gt;
+    import torch
+  File &quot;/Users/ulye_kak_raz/Desktop/pinn-course/.venv/lib/python3.10/site-packages/torch/__init__.py&quot;, line 1477, in &lt;module&gt;
+    from .functional import *  # noqa: F403
+  File &quot;/Users/ulye_kak_raz/Desktop/pinn-course/.venv/lib/python3.10/site-packages/torch/functional.py&quot;, line 9, in &lt;module&gt;
+    import torch.nn.functional as F
+  File &quot;/Users/ulye_kak_raz/Desktop/pinn-course/.venv/lib/python3.10/site-packages/torch/nn/__init__.py&quot;, line 1, in &lt;module&gt;
+    from .modules import *  # noqa: F403
+  File &quot;/Users/ulye_kak_raz/Desktop/pinn-course/.venv/lib/python3.10/site-packages/torch/nn/modules/__init__.py&quot;, line 35, in &lt;module&gt;
+    from .transformer import TransformerEncoder, TransformerDecoder, \
+  File &quot;/Users/ulye_kak_raz/Desktop/pinn-course/.venv/lib/python3.10/site-packages/torch/nn/modules/transformer.py&quot;, line 20, in &lt;module&gt;
+    device: torch.device = torch.device(torch._C._get_default_device()),  # torch.device(&#39;cpu&#39;),
+/Users/ulye_kak_raz/Desktop/pinn-course/.venv/lib/python3.10/site-packages/torch/nn/modules/transformer.py:20: UserWarning: Failed to initialize NumPy: _ARRAY_API not found (Triggered internally at /Users/runner/work/pytorch/pytorch/pytorch/torch/csrc/utils/tensor_numpy.cpp:84.)
+  device: torch.device = torch.device(torch._C._get_default_device()),  # torch.device(&#39;cpu&#39;),
+</pre></div>
+</div>
+</div>
+</div>
+<p>We create a function to calculate the analytical solution of the problem. Then we can use this to create syntetic data for training.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">analytical_solution</span><span class="p">(</span><span class="n">zeta</span><span class="p">,</span> <span class="n">omega_0</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+    <span class="s2">&quot;Damped oscillator analytical solution&quot;</span>
+    <span class="n">omega_d</span> <span class="o">=</span> <span class="n">omega_0</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">zeta</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">A</span> <span class="o">=</span> <span class="n">zeta</span> <span class="o">*</span> <span class="n">omega_0</span> <span class="o">/</span> <span class="n">omega_d</span>
+    <span class="n">B</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">zeta</span> <span class="o">*</span> <span class="n">omega_0</span> <span class="o">*</span> <span class="n">t</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">A</span> <span class="o">*</span> <span class="n">torch</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">omega_d</span> <span class="o">*</span> <span class="n">t</span><span class="p">)</span> <span class="o">+</span> <span class="n">B</span> <span class="o">*</span> <span class="n">torch</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">omega_d</span> <span class="o">*</span> <span class="n">t</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">create_gif</span><span class="p">(</span><span class="n">output_path</span><span class="p">,</span> <span class="n">image_paths</span><span class="p">,</span> <span class="n">fps</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">loop</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+    <span class="s2">&quot;Generates a GIF from a sequence of image paths&quot;</span>
+    <span class="n">frames</span> <span class="o">=</span> <span class="p">[</span><span class="n">Image</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">image_paths</span><span class="p">]</span>
+    <span class="n">frames</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">fp</span><span class="o">=</span><span class="n">output_path</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;GIF&#39;</span><span class="p">,</span> <span class="n">append_images</span><span class="o">=</span><span class="n">frames</span><span class="p">[</span><span class="mi">1</span><span class="p">:],</span> <span class="n">save_all</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">duration</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="mi">1000</span><span class="o">/</span><span class="n">fps</span><span class="p">),</span> <span class="n">loop</span><span class="o">=</span><span class="n">loop</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Here we are setting the device for PyTorch tensors. Training on GPU is not always faster. Factors such as model size, batch size etc. can make the overhead of transferring data between CPU and GPU outweight the benefits of parallel computation. It is usaually faster to use CPU for simple problems.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># if torch.cuda.is_available():</span>
+<span class="c1">#     device = torch.device(&#39;cuda&#39;)</span>
+<span class="c1"># elif torch.backends.mps.is_available():</span>
+<span class="c1">#     device = torch.device(&#39;mps&#39;)</span>
+<span class="c1"># else:</span>
+<span class="c1">#     device = torch.device(&#39;cpu&#39;)</span>
+
+<span class="n">device</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="s1">&#39;cpu&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Using device: </span><span class="si">{</span><span class="n">device</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Using device: cpu
+</pre></div>
+</div>
+</div>
+</div>
+<p>We now define the problem parameters, and training points</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Parameters</span>
+<span class="n">damping</span> <span class="o">=</span> <span class="mf">0.1</span>
+<span class="n">omega_n</span> <span class="o">=</span> <span class="mi">20</span>
+
+<span class="c1"># Exact data generation, 500 linearly spaced t values</span>
+<span class="n">t_vals</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">500</span><span class="p">)</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">u_exact</span> <span class="o">=</span> <span class="n">analytical_solution</span><span class="p">(</span><span class="n">damping</span><span class="p">,</span> <span class="n">omega_n</span><span class="p">,</span> <span class="n">t_vals</span><span class="p">)</span>
+
+<span class="c1"># Select the every 20th element from the first 200 elements for training</span>
+<span class="n">t_train</span> <span class="o">=</span> <span class="n">t_vals</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">200</span><span class="p">:</span><span class="mi">20</span><span class="p">]</span>
+<span class="n">u_train</span> <span class="o">=</span> <span class="n">u_exact</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">200</span><span class="p">:</span><span class="mi">20</span><span class="p">]</span>
+
+<span class="c1"># Plot the sampled points</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t_vals</span><span class="p">,</span> <span class="n">u_exact</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Exact&quot;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;-&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;steelblue&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">t_train</span><span class="p">,</span> <span class="n">u_train</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;crimson&quot;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;.&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Data Points&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Sampled Data Points&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Time [t]&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Displacement [u]&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">RuntimeError</span><span class="g g-Whitespace">                              </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">5</span><span class="p">],</span> <span class="n">line</span> <span class="mi">15</span>
+<span class="g g-Whitespace">     </span><span class="mi">13</span> <span class="c1"># Plot the sampled points</span>
+<span class="g g-Whitespace">     </span><span class="mi">14</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="ne">---&gt; </span><span class="mi">15</span> <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t_vals</span><span class="p">,</span> <span class="n">u_exact</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Exact&quot;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;-&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;steelblue&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">16</span> <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">t_train</span><span class="p">,</span> <span class="n">u_train</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;crimson&quot;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;.&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Data Points&quot;</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">17</span> <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Sampled Data Points&quot;</span><span class="p">)</span>
+
+<span class="nn">File ~/Desktop/pinn-course/.venv/lib/python3.10/site-packages/matplotlib/pyplot.py:3838,</span> in <span class="ni">plot</span><span class="nt">(scalex, scaley, data, *args, **kwargs)</span>
+<span class="g g-Whitespace">   </span><span class="mi">3830</span> <span class="nd">@_copy_docstring_and_deprecators</span><span class="p">(</span><span class="n">Axes</span><span class="o">.</span><span class="n">plot</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">3831</span> <span class="k">def</span><span class="w"> </span><span class="nf">plot</span><span class="p">(</span>
+<span class="g g-Whitespace">   </span><span class="mi">3832</span>     <span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="n">ArrayLike</span> <span class="o">|</span> <span class="nb">str</span><span class="p">,</span>
+   <span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">3836</span>     <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">3837</span> <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">Line2D</span><span class="p">]:</span>
+<span class="ne">-&gt; </span><span class="mi">3838</span>     <span class="k">return</span> <span class="n">gca</span><span class="p">()</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+<span class="g g-Whitespace">   </span><span class="mi">3839</span>         <span class="o">*</span><span class="n">args</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">3840</span>         <span class="n">scalex</span><span class="o">=</span><span class="n">scalex</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">3841</span>         <span class="n">scaley</span><span class="o">=</span><span class="n">scaley</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">3842</span>         <span class="o">**</span><span class="p">({</span><span class="s2">&quot;data&quot;</span><span class="p">:</span> <span class="n">data</span><span class="p">}</span> <span class="k">if</span> <span class="n">data</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="p">{}),</span>
+<span class="g g-Whitespace">   </span><span class="mi">3843</span>         <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">3844</span>     <span class="p">)</span>
+
+<span class="nn">File ~/Desktop/pinn-course/.venv/lib/python3.10/site-packages/matplotlib/axes/_axes.py:1777,</span> in <span class="ni">Axes.plot</span><span class="nt">(self, scalex, scaley, data, *args, **kwargs)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1534</span><span class="w"> </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="g g-Whitespace">   </span><span class="mi">1535</span><span class="sd"> Plot y versus x as lines and/or markers.</span>
+<span class="g g-Whitespace">   </span><span class="mi">1536</span><span class="sd"> </span>
+<span class="sd">   (...)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1774</span><span class="sd"> (``&#39;green&#39;``) or hex strings (``&#39;#008000&#39;``).</span>
+<span class="g g-Whitespace">   </span><span class="mi">1775</span><span class="sd"> &quot;&quot;&quot;</span>
+<span class="g g-Whitespace">   </span><span class="mi">1776</span> <span class="n">kwargs</span> <span class="o">=</span> <span class="n">cbook</span><span class="o">.</span><span class="n">normalize_kwargs</span><span class="p">(</span><span class="n">kwargs</span><span class="p">,</span> <span class="n">mlines</span><span class="o">.</span><span class="n">Line2D</span><span class="p">)</span>
+<span class="ne">-&gt; </span><span class="mi">1777</span> <span class="n">lines</span> <span class="o">=</span> <span class="p">[</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">_get_lines</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)]</span>
+<span class="g g-Whitespace">   </span><span class="mi">1778</span> <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">:</span>
+<span class="g g-Whitespace">   </span><span class="mi">1779</span>     <span class="bp">self</span><span class="o">.</span><span class="n">add_line</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+
+<span class="nn">File ~/Desktop/pinn-course/.venv/lib/python3.10/site-packages/matplotlib/axes/_base.py:297,</span> in <span class="ni">_process_plot_var_args.__call__</span><span class="nt">(self, axes, data, return_kwargs, *args, **kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">295</span>     <span class="n">this</span> <span class="o">+=</span> <span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+<span class="g g-Whitespace">    </span><span class="mi">296</span>     <span class="n">args</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
+<span class="ne">--&gt; </span><span class="mi">297</span> <span class="k">yield from</span> <span class="bp">self</span><span class="o">.</span><span class="n">_plot_args</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">298</span>     <span class="n">axes</span><span class="p">,</span> <span class="n">this</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">,</span> <span class="n">ambiguous_fmt_datakey</span><span class="o">=</span><span class="n">ambiguous_fmt_datakey</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">299</span>     <span class="n">return_kwargs</span><span class="o">=</span><span class="n">return_kwargs</span>
+<span class="g g-Whitespace">    </span><span class="mi">300</span> <span class="p">)</span>
+
+<span class="nn">File ~/Desktop/pinn-course/.venv/lib/python3.10/site-packages/matplotlib/axes/_base.py:483,</span> in <span class="ni">_process_plot_var_args._plot_args</span><span class="nt">(self, axes, tup, kwargs, return_kwargs, ambiguous_fmt_datakey)</span>
+<span class="g g-Whitespace">    </span><span class="mi">480</span>         <span class="n">kw</span><span class="p">[</span><span class="n">prop_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">val</span>
+<span class="g g-Whitespace">    </span><span class="mi">482</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">xy</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">483</span>     <span class="n">x</span> <span class="o">=</span> <span class="n">_check_1d</span><span class="p">(</span><span class="n">xy</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="g g-Whitespace">    </span><span class="mi">484</span>     <span class="n">y</span> <span class="o">=</span> <span class="n">_check_1d</span><span class="p">(</span><span class="n">xy</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="g g-Whitespace">    </span><span class="mi">485</span> <span class="k">else</span><span class="p">:</span>
+
+<span class="nn">File ~/Desktop/pinn-course/.venv/lib/python3.10/site-packages/matplotlib/cbook.py:1361,</span> in <span class="ni">_check_1d</span><span class="nt">(x)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1359</span><span class="w"> </span><span class="sd">&quot;&quot;&quot;Convert scalars to 1D arrays; pass-through arrays as is.&quot;&quot;&quot;</span>
+<span class="g g-Whitespace">   </span><span class="mi">1360</span> <span class="c1"># Unpack in case of e.g. Pandas or xarray object</span>
+<span class="ne">-&gt; </span><span class="mi">1361</span> <span class="n">x</span> <span class="o">=</span> <span class="n">_unpack_to_numpy</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1362</span> <span class="c1"># plot requires `shape` and `ndim`.  If passed an</span>
+<span class="g g-Whitespace">   </span><span class="mi">1363</span> <span class="c1"># object that doesn&#39;t provide them, then force to numpy array.</span>
+<span class="g g-Whitespace">   </span><span class="mi">1364</span> <span class="c1"># Note this will strip unit information.</span>
+<span class="g g-Whitespace">   </span><span class="mi">1365</span> <span class="k">if</span> <span class="p">(</span><span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="s1">&#39;shape&#39;</span><span class="p">)</span> <span class="ow">or</span>
+<span class="g g-Whitespace">   </span><span class="mi">1366</span>         <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="s1">&#39;ndim&#39;</span><span class="p">)</span> <span class="ow">or</span>
+<span class="g g-Whitespace">   </span><span class="mi">1367</span>         <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">):</span>
+
+<span class="nn">File ~/Desktop/pinn-course/.venv/lib/python3.10/site-packages/matplotlib/cbook.py:2387,</span> in <span class="ni">_unpack_to_numpy</span><span class="nt">(x)</span>
+<span class="g g-Whitespace">   </span><span class="mi">2381</span>         <span class="k">return</span> <span class="n">xtmp</span>
+<span class="g g-Whitespace">   </span><span class="mi">2382</span> <span class="k">if</span> <span class="n">_is_torch_array</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="ow">or</span> <span class="n">_is_jax_array</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="ow">or</span> <span class="n">_is_tensorflow_array</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<span class="g g-Whitespace">   </span><span class="mi">2383</span>     <span class="c1"># using np.asarray() instead of explicitly __array__(), as the latter is</span>
+<span class="g g-Whitespace">   </span><span class="mi">2384</span>     <span class="c1"># only _one_ of many methods, and it&#39;s the last resort, see also</span>
+<span class="g g-Whitespace">   </span><span class="mi">2385</span>     <span class="c1"># https://numpy.org/devdocs/user/basics.interoperability.html#using-arbitrary-objects-in-numpy</span>
+<span class="g g-Whitespace">   </span><span class="mi">2386</span>     <span class="c1"># therefore, let arrays do better if they can</span>
+<span class="ne">-&gt; </span><span class="mi">2387</span>     <span class="n">xtmp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">2389</span>     <span class="c1"># In case np.asarray method does not return a numpy array in future</span>
+<span class="g g-Whitespace">   </span><span class="mi">2390</span>     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">xtmp</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
+
+<span class="nn">File ~/Desktop/pinn-course/.venv/lib/python3.10/site-packages/torch/_tensor.py:1062,</span> in <span class="ni">Tensor.__array__</span><span class="nt">(self, dtype)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1060</span>     <span class="k">return</span> <span class="n">handle_torch_function</span><span class="p">(</span><span class="n">Tensor</span><span class="o">.</span><span class="n">__array__</span><span class="p">,</span> <span class="p">(</span><span class="bp">self</span><span class="p">,),</span> <span class="bp">self</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1061</span> <span class="k">if</span> <span class="n">dtype</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+<span class="ne">-&gt; </span><span class="mi">1062</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+<span class="g g-Whitespace">   </span><span class="mi">1063</span> <span class="k">else</span><span class="p">:</span>
+<span class="g g-Whitespace">   </span><span class="mi">1064</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">dtype</span><span class="p">,</span> <span class="n">copy</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="ne">RuntimeError</span>: Numpy is not available
+</pre></div>
+</div>
+<img alt="../_images/d856e7a2d46d9143ee449661d4a8dcae2ef88943864db26fbaf8c253ab6cee48.png" src="../_images/d856e7a2d46d9143ee449661d4a8dcae2ef88943864db26fbaf8c253ab6cee48.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">visualize_results</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">u_exact</span><span class="p">,</span> <span class="n">t_train</span><span class="p">,</span> <span class="n">u_train</span><span class="p">,</span> <span class="n">u_pred</span><span class="p">,</span> <span class="n">physics_pts</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="s2">&quot;Visualization of predictions&quot;</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">u_exact</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Exact&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;steelblue&quot;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">u_pred</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;NN Prediction&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">,</span>  <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;-&quot;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">t_train</span><span class="p">,</span> <span class="n">u_train</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Training Data&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;crimson&quot;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;.&quot;</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">physics_pts</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">physics_pts</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">physics_pts</span><span class="p">),</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Physics Points&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;seagreen&quot;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;.&#39;</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="o">-</span><span class="mf">0.05</span><span class="p">,</span> <span class="mf">1.05</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="o">-</span><span class="mf">1.2</span><span class="p">,</span> <span class="mf">1.2</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Time [t]&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Displacement [u]&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Epoch </span><span class="si">{</span><span class="n">step</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">&quot;upper right&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Define a simple feed forward network</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Simple MLP architecture</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">MLP</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">arch</span><span class="p">,</span> <span class="n">act</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">MLP</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="n">layers</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">arch</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="n">layers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">arch</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">arch</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]))</span>
+            <span class="k">if</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">arch</span><span class="p">)</span> <span class="o">-</span> <span class="mi">2</span><span class="p">:</span> 
+                <span class="n">layers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">act</span><span class="p">())</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">model</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Sequential</span><span class="p">(</span><span class="o">*</span><span class="n">layers</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inputs</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">(</span><span class="n">inputs</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>firstly lets try to predict the displacement at the surface using a regular neural network. For this we can define a simple feed dorward network and train it on the syntetic data we just created and use the model to predict further time steps. So the mapping would be scalar to scalar:
+$<span class="math notranslate nohighlight">\(
+t \mapsto u(t)
+\)</span>$</p>
+<p>so
+$<span class="math notranslate nohighlight">\(NN(t) \approx u_\theta(t)\)</span>$</p>
+<p>Network will take a scalar input for time and will output a scalar for displacement. And we define the loss as only data loss using MSE:
+$<span class="math notranslate nohighlight">\(
+L_u = \frac{1}{N_u}\sum_{i=1}^{N_u} ({u_\theta(t^i) - u^i})^2
+\)</span>$</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Train NN without physics</span>
+<span class="n">torch</span><span class="o">.</span><span class="n">manual_seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">architecture</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="p">[</span><span class="mi">32</span><span class="p">]</span> <span class="o">*</span> <span class="mi">3</span> <span class="o">+</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span>  <span class="c1"># input_dim=1, hidden_dim=32, output_dim=1, depth=3</span>
+<span class="n">activation</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Tanh</span> <span class="c1"># Try different activations like nn.ReLU, nn.Sigmoid, etc.</span>
+
+<span class="c1"># we now create the neural network, optimizer</span>
+<span class="n">net</span> <span class="o">=</span> <span class="n">MLP</span><span class="p">(</span><span class="n">architecture</span><span class="p">,</span> <span class="n">activation</span><span class="p">)</span> 
+<span class="n">optimizer</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">optim</span><span class="o">.</span><span class="n">Adam</span><span class="p">(</span><span class="n">net</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">lr</span><span class="o">=</span><span class="mf">1e-3</span><span class="p">)</span>
+<span class="n">img_paths</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="c1"># This creates a directory for saving plots</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="s2">&quot;plots/net&quot;</span><span class="p">):</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="s2">&quot;plots/net&quot;</span><span class="p">)</span>
+
+<span class="c1"># Training loop</span>
+<span class="k">for</span> <span class="n">step</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">15001</span><span class="p">):</span>
+    <span class="n">optimizer</span><span class="o">.</span><span class="n">zero_grad</span><span class="p">()</span>
+    <span class="n">pred_train</span> <span class="o">=</span> <span class="n">net</span><span class="p">(</span><span class="n">t_train</span><span class="p">)</span>  <span class="c1"># we are using the previously sampled training data</span>
+    <span class="n">loss</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">functional</span><span class="o">.</span><span class="n">mse_loss</span><span class="p">(</span><span class="n">pred_train</span><span class="p">,</span> <span class="n">u_train</span><span class="p">)</span> <span class="c1"># Data loss</span>
+    <span class="n">loss</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
+    <span class="n">optimizer</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">step</span><span class="p">)</span> <span class="o">%</span> <span class="mi">100</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
+            <span class="n">prediction</span> <span class="o">=</span> <span class="n">net</span><span class="p">(</span><span class="n">t_vals</span><span class="p">)</span>
+        <span class="n">visualize_results</span><span class="p">(</span><span class="n">t_vals</span><span class="p">,</span> <span class="n">u_exact</span><span class="p">,</span> <span class="n">t_train</span><span class="p">,</span> <span class="n">u_train</span><span class="p">,</span> <span class="n">prediction</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="n">step</span><span class="p">)</span>
+        <span class="n">filename</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;plots/net/</span><span class="si">{</span><span class="n">step</span><span class="si">:</span><span class="s2">08d</span><span class="si">}</span><span class="s2">.png&quot;</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">120</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s2">&quot;tight&quot;</span><span class="p">)</span>
+        <span class="n">img_paths</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">step</span><span class="p">)</span> <span class="o">%</span> <span class="mi">5000</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+<span class="n">create_gif</span><span class="p">(</span><span class="s2">&quot;net_output.gif&quot;</span><span class="p">,</span> <span class="n">img_paths</span><span class="p">,</span> <span class="n">fps</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/7ce70856c171d4f61a0ea8dd0ba6754ea6cc54b5aed0ef3e4802261f97bf0dd8.png" src="../_images/7ce70856c171d4f61a0ea8dd0ba6754ea6cc54b5aed0ef3e4802261f97bf0dd8.png" />
+<img alt="../_images/5f62295612c207189b77d236def06672cdfd626758946c04c3cf172329c04e55.png" src="../_images/5f62295612c207189b77d236def06672cdfd626758946c04c3cf172329c04e55.png" />
+<img alt="../_images/26e43b4ce47af96db5ad508cb5a08be321bb46c9156f3e68f391bb6cd3ca658d.png" src="../_images/26e43b4ce47af96db5ad508cb5a08be321bb46c9156f3e68f391bb6cd3ca658d.png" />
+<img alt="../_images/5bc803c570c90db7895f91830d94fbc927c7b65999b1ba5854113ee7a63434df.png" src="../_images/5bc803c570c90db7895f91830d94fbc927c7b65999b1ba5854113ee7a63434df.png" />
+</div>
+</div>
+<p>Network clearly has some troubles predicting the next time steps. We will now incorporate the known physics into the training and see the results. The new network will be very similar to the regular neural network we just defined, but the loss function will be regularized by the governing ODE as well. For this we need to sample extra input points to evaluate the ODE at. The known displacements at these time steps will not be used in the training. Therefore this extra term is unsupervised.</p>
+<p>The ODE was:
+$<span class="math notranslate nohighlight">\(
+\ddot{u}(t) + 2\zeta\omega_0\dot{u}(t) + \omega_0^2u = 0~,
+\)</span>$</p>
+<p>Remeber that our Neural network <span class="math notranslate nohighlight">\(NN(t) \approx u_\theta(t)\)</span>, we rewrite the ODE as:
+$<span class="math notranslate nohighlight">\(
+f  = \frac{\partial^2NN(t)}{\partial t^2} + 2\zeta\omega_0\cdot\frac{\partial NN(t)}{\partial t} + \omega_0^2\cdot NN(t) = 0~,
+\)</span>$</p>
+<p>We can leverage the Automatic Differentiation to calculate the derivatives of the output of NN wrt to the inputs and evaluate the ODE above to calculate the error. So a perfect prediction would mean <span class="math notranslate nohighlight">\(f = 0\)</span>, then the value of <span class="math notranslate nohighlight">\(f\)</span> can be treated as the error of the prediction. And we can use that to regularize the network.</p>
+<p>We can define the extra regularization term as:</p>
+<div class="math notranslate nohighlight">
+\[
+L_{PDE} = \frac{1}{N_{PDE}}\sum_{k=1}^{N_{PDE}} ({f(t^k)})^2
+\]</div>
+<p>Thus the total loss will be:</p>
+<div class="math notranslate nohighlight">
+\[
+L_{tot} = \lambda_u L_{u} + \lambda_{PDE} L_{PDE}
+\]</div>
+<p><span class="math notranslate nohighlight">\(\lambda_u\)</span> and <span class="math notranslate nohighlight">\(\lambda_{PDE}\)</span> are coeffcient of each contribution. These have to be defined properly, especially if the scales of the losses are very different. For this problem we take <span class="math notranslate nohighlight">\(\lambda_u = 1\)</span> and <span class="math notranslate nohighlight">\(\lambda_{PDE} = 1 \times 10^{-4}\)</span></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># We are generating 30 extra points to evaluate the physics-informed loss</span>
+<span class="n">physics_t</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">30</span><span class="p">)</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">requires_grad_</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">torch</span><span class="o">.</span><span class="n">manual_seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<span class="c1"># Define the architecture and activation function</span>
+<span class="n">architecture</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="p">[</span><span class="mi">32</span><span class="p">]</span> <span class="o">*</span> <span class="mi">3</span> <span class="o">+</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span>  <span class="c1"># input_dim=1, hidden_dim=32, output_dim=1, depth=3</span>
+
+<span class="n">activation</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Tanh</span> <span class="c1"># Try different activations like nn.ReLU, nn.Sigmoid, etc. and see how it affects the results</span>
+
+<span class="n">net</span> <span class="o">=</span> <span class="n">MLP</span><span class="p">(</span><span class="n">architecture</span><span class="p">,</span> <span class="n">activation</span><span class="p">)</span>  <span class="c1"># Reinitialize the network</span>
+<span class="n">optimizer</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">optim</span><span class="o">.</span><span class="n">Adam</span><span class="p">(</span><span class="n">net</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">lr</span><span class="o">=</span><span class="mf">1e-4</span><span class="p">)</span>
+<span class="n">img_paths</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="s2">&quot;plots/pinn&quot;</span><span class="p">):</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="s2">&quot;plots/pinn&quot;</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">step</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">15001</span><span class="p">):</span>
+    <span class="n">optimizer</span><span class="o">.</span><span class="n">zero_grad</span><span class="p">()</span>
+    
+    <span class="c1"># Data loss as before</span>
+    <span class="n">pred_train</span> <span class="o">=</span> <span class="n">net</span><span class="p">(</span><span class="n">t_train</span><span class="p">)</span>
+    <span class="n">loss_data</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">functional</span><span class="o">.</span><span class="n">mse_loss</span><span class="p">(</span><span class="n">pred_train</span><span class="p">,</span> <span class="n">u_train</span><span class="p">)</span> 
+
+    <span class="c1"># Physics-informed loss, evaluated at the physics points</span>
+    <span class="n">u</span> <span class="o">=</span> <span class="n">net</span><span class="p">(</span><span class="n">physics_t</span><span class="p">)</span>
+    <span class="n">u_t</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">autograd</span><span class="o">.</span><span class="n">grad</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">physics_t</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">ones_like</span><span class="p">(</span><span class="n">u</span><span class="p">),</span> <span class="n">create_graph</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">u_tt</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">autograd</span><span class="o">.</span><span class="n">grad</span><span class="p">(</span><span class="n">u_t</span><span class="p">,</span> <span class="n">physics_t</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">ones_like</span><span class="p">(</span><span class="n">u_t</span><span class="p">),</span> <span class="n">create_graph</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">residual</span> <span class="o">=</span> <span class="n">u_tt</span> <span class="o">+</span> <span class="mi">2</span><span class="o">*</span><span class="n">damping</span><span class="o">*</span><span class="n">omega_n</span><span class="o">*</span><span class="n">u_t</span> <span class="o">+</span> <span class="n">omega_n</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="n">u</span> <span class="c1"># residual of the ODE</span>
+    <span class="n">loss_phys</span> <span class="o">=</span> <span class="mf">1e-4</span> <span class="o">*</span> <span class="n">torch</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">residual</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="c1"># Physics-informed loss lambda = 1e-4</span>
+
+    <span class="n">total_loss</span> <span class="o">=</span> <span class="n">loss_data</span> <span class="o">+</span> <span class="n">loss_phys</span> <span class="c1"># combine the losses</span>
+    <span class="n">total_loss</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
+    <span class="n">optimizer</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">step</span><span class="p">)</span> <span class="o">%</span> <span class="mi">100</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
+            <span class="n">prediction</span> <span class="o">=</span> <span class="n">net</span><span class="p">(</span><span class="n">t_vals</span><span class="p">)</span>
+            <span class="n">phys_pts</span> <span class="o">=</span> <span class="n">physics_t</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span>
+        <span class="n">visualize_results</span><span class="p">(</span><span class="n">t_vals</span><span class="p">,</span> <span class="n">u_exact</span><span class="p">,</span> <span class="n">t_train</span><span class="p">,</span> <span class="n">u_train</span><span class="p">,</span> <span class="n">prediction</span><span class="p">,</span> <span class="n">physics_pts</span><span class="o">=</span><span class="n">phys_pts</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="n">step</span><span class="p">)</span>
+        <span class="n">filename</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;plots/pinn/</span><span class="si">{</span><span class="n">step</span><span class="si">:</span><span class="s2">08d</span><span class="si">}</span><span class="s2">.png&quot;</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">120</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s2">&quot;tight&quot;</span><span class="p">)</span>
+        <span class="n">img_paths</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">step</span><span class="p">)</span> <span class="o">%</span> <span class="mi">5000</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+<span class="n">create_gif</span><span class="p">(</span><span class="s2">&quot;pinn_output.gif&quot;</span><span class="p">,</span> <span class="n">img_paths</span><span class="p">,</span> <span class="n">fps</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/7f2439471628a6796c2d3855587a76179bc1353ca57465d481f24653d938c120.png" src="../_images/7f2439471628a6796c2d3855587a76179bc1353ca57465d481f24653d938c120.png" />
+<img alt="../_images/4af6cce4efdb9ac051f734848d061dae2024aaed4b8fc1e8beec7ee76466bffb.png" src="../_images/4af6cce4efdb9ac051f734848d061dae2024aaed4b8fc1e8beec7ee76466bffb.png" />
+<img alt="../_images/59502111c5465b3c51577760d8bdf225559e9e7d5e076c9a6838799179104cc0.png" src="../_images/59502111c5465b3c51577760d8bdf225559e9e7d5e076c9a6838799179104cc0.png" />
+<img alt="../_images/6b30f49d81680aa1d9fb0b3e7eef5737546da103843a6215e92f787f065cf825.png" src="../_images/6b30f49d81680aa1d9fb0b3e7eef5737546da103843a6215e92f787f065cf825.png" />
+</div>
+</div>
+<p>As you cans see, the inclusion of the ODE as a loss term increased the prediction for the unseen time steps. And our PINNs model learned the solution of the ODE, even though we used very few data, in fact it could also learn the solution without any data and we will come to that in a bit. But now we will use PINNs for the discovery of the governing relations.</p>
+</section>
+<section id="data-driven-discovery-of-partial-differential-equations">
+<h2>Data-Driven Discovery of Partial Differential Equations<a class="headerlink" href="#data-driven-discovery-of-partial-differential-equations" title="Link to this heading">#</a></h2>
+<p>When only noisy and incomplete measurements <span class="math notranslate nohighlight">\(z\)</span> are available, the data-driven discovery of PDEs aims to reconstruct the unknown state <span class="math notranslate nohighlight">\(u(t,x)\)</span> while simultaneously learning the model parameters <span class="math notranslate nohighlight">\(\lambda\)</span> that best describe the observed system. The governing equation is given by:</p>
+<div class="math notranslate nohighlight">
+\[
+\dot{u} + N[u; \lambda]=0, \quad x \in \Omega, \quad t \in[0, T]
+\]</div>
+<p>With the residual function defined as:</p>
+<div class="math notranslate nohighlight">
+\[
+f := \dot{u} + N[u; \lambda]=0
+\]</div>
+<p>and <span class="math notranslate nohighlight">\(u(t,x)\)</span> approximated via a deep neural network, the resulting function <span class="math notranslate nohighlight">\(f(t,x)\)</span> constitutes a PINN. Automatic differentiation facilitates the derivation of this network. The parameters of <span class="math notranslate nohighlight">\(u(t,x)\)</span>, <span class="math notranslate nohighlight">\(f(t,x)\)</span>, and the unknown differential operator parameter <span class="math notranslate nohighlight">\(\lambda\)</span> are learned by minimizing the loss function</p>
+<p>Lets apply this to our toy problem.</p>
+<p>Let:</p>
+<p><span class="math notranslate nohighlight">\(N[u;\lambda]=\lambda_1 \cdot \ddot{u} + \lambda_2 \cdot u\)</span></p>
+<div class="math notranslate nohighlight">
+\[
+\dot{u} +\lambda_1 \cdot \ddot{u} + \lambda_2 \cdot u = 0~,
+\]</div>
+<p>or</p>
+<div class="math notranslate nohighlight">
+\[
+f := \dot{u} + N[u; \lambda]=0
+\]</div>
+<p>So we can let the network learn the parameters <span class="math notranslate nohighlight">\(\lambda_1\)</span> and <span class="math notranslate nohighlight">\(\lambda_2\)</span></p>
+<p>In our case <span class="math notranslate nohighlight">\(\lambda=[\lambda_1,\lambda_2]=[\frac{1}{2\zeta\omega_0},\frac{\omega_0}{2\zeta}]=\left[0.25,100.0\right]\)</span></p>
+<p>To make it more simple, lets say we know <span class="math notranslate nohighlight">\(\omega_0\)</span> already which was 20 and want to find <span class="math notranslate nohighlight">\(\zeta\)</span>, so:</p>
+<p><span class="math notranslate nohighlight">\(\lambda=[\lambda_1,\lambda_2]=[\frac{1}{40\zeta},\frac{20}{2\zeta}]=\left[0.25,100.0\right]\)</span></p>
+<p>We have to define a new network in this case with a trainable parameter for damping, we can do that by using <code class="docutils literal notranslate"><span class="pre">torch.nn.Parameter</span></code> to define a trainable parameter in the MLP class. This type of training is called inverse training, so lets call the new network class MLP_inverse</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">MLP_inverse</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">arch</span><span class="p">,</span> <span class="n">act</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">MLP_inverse</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="n">layers</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">arch</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="n">layers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">arch</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">arch</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]))</span>
+            <span class="k">if</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">arch</span><span class="p">)</span> <span class="o">-</span> <span class="mi">2</span><span class="p">:</span> 
+                <span class="n">layers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">act</span><span class="p">())</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">model</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Sequential</span><span class="p">(</span><span class="o">*</span><span class="n">layers</span><span class="p">)</span>
+
+        <span class="c1"># define a trainable parameter for damping using torch.nn.Parameter</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">damping</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="mf">1.</span><span class="p">))</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inputs</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">(</span><span class="n">inputs</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Train PINN with physics</span>
+<span class="n">physics_t</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">30</span><span class="p">)</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">requires_grad_</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">torch</span><span class="o">.</span><span class="n">manual_seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<span class="c1"># Define the architecture and activation function</span>
+<span class="n">architecture</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="p">[</span><span class="mi">32</span><span class="p">]</span> <span class="o">*</span> <span class="mi">3</span> <span class="o">+</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span>  <span class="c1"># input_dim=1, hidden_dim=32, output_dim=1, depth=3</span>
+<span class="n">activation</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Tanh</span> 
+<span class="n">net</span> <span class="o">=</span> <span class="n">MLP_inverse</span><span class="p">(</span><span class="n">architecture</span><span class="p">,</span> <span class="n">activation</span><span class="p">)</span>  <span class="c1"># Reinitialize the network with a trainable damping parameter</span>
+<span class="n">optimizer</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">optim</span><span class="o">.</span><span class="n">Adam</span><span class="p">(</span><span class="n">net</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">lr</span><span class="o">=</span><span class="mf">1e-4</span><span class="p">)</span>
+<span class="n">img_paths</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="c1"># Select the every 5th element from the first 200 elements for training</span>
+<span class="n">t_train_inv</span> <span class="o">=</span> <span class="n">t_vals</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">200</span><span class="p">:</span><span class="mi">20</span><span class="p">]</span>
+<span class="n">u_train_inv</span> <span class="o">=</span> <span class="n">u_exact</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">200</span><span class="p">:</span><span class="mi">20</span><span class="p">]</span>
+
+<span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="s2">&quot;plots/pinn_inv&quot;</span><span class="p">):</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="s2">&quot;plots/pinn_inv&quot;</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">step</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">40001</span><span class="p">):</span>
+    <span class="n">optimizer</span><span class="o">.</span><span class="n">zero_grad</span><span class="p">()</span>
+    
+    <span class="c1"># Data loss</span>
+    <span class="n">pred_train</span> <span class="o">=</span> <span class="n">net</span><span class="p">(</span><span class="n">t_train_inv</span><span class="p">)</span>
+    <span class="n">loss_data</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">functional</span><span class="o">.</span><span class="n">mse_loss</span><span class="p">(</span><span class="n">pred_train</span><span class="p">,</span> <span class="n">u_train_inv</span><span class="p">)</span>
+
+    <span class="c1"># Physics-informed loss</span>
+    <span class="n">u</span> <span class="o">=</span> <span class="n">net</span><span class="p">(</span><span class="n">physics_t</span><span class="p">)</span>
+    <span class="n">u_t</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">autograd</span><span class="o">.</span><span class="n">grad</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">physics_t</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">ones_like</span><span class="p">(</span><span class="n">u</span><span class="p">),</span> <span class="n">create_graph</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">u_tt</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">autograd</span><span class="o">.</span><span class="n">grad</span><span class="p">(</span><span class="n">u_t</span><span class="p">,</span> <span class="n">physics_t</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">ones_like</span><span class="p">(</span><span class="n">u_t</span><span class="p">),</span> <span class="n">create_graph</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">lambda1</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">net</span><span class="o">.</span><span class="n">damping</span> <span class="o">*</span> <span class="n">omega_n</span><span class="p">)</span>
+    <span class="n">lambda2</span> <span class="o">=</span> <span class="n">omega_n</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">net</span><span class="o">.</span><span class="n">damping</span><span class="p">)</span>
+    <span class="n">residual</span> <span class="o">=</span> <span class="n">u_t</span> <span class="o">+</span> <span class="n">lambda1</span> <span class="o">*</span> <span class="n">u_tt</span> <span class="o">+</span> <span class="n">lambda2</span> <span class="o">*</span> <span class="n">u</span>
+    <span class="n">loss_phys</span> <span class="o">=</span> <span class="mf">1e-2</span> <span class="o">*</span> <span class="n">torch</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">residual</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+
+    <span class="n">total_loss</span> <span class="o">=</span> <span class="n">loss_data</span> <span class="o">+</span> <span class="n">loss_phys</span>
+    <span class="n">total_loss</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
+    <span class="n">optimizer</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">step</span><span class="p">)</span> <span class="o">%</span> <span class="mi">100</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
+            <span class="n">prediction</span> <span class="o">=</span> <span class="n">net</span><span class="p">(</span><span class="n">t_vals</span><span class="p">)</span>
+            <span class="n">phys_pts</span> <span class="o">=</span> <span class="n">physics_t</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span>
+        <span class="n">visualize_results</span><span class="p">(</span><span class="n">t_vals</span><span class="p">,</span> <span class="n">u_exact</span><span class="p">,</span> <span class="n">t_train_inv</span><span class="p">,</span> <span class="n">u_train_inv</span><span class="p">,</span> <span class="n">prediction</span><span class="p">,</span> <span class="n">physics_pts</span><span class="o">=</span><span class="n">phys_pts</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="n">step</span><span class="p">)</span>
+        <span class="n">filename</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;plots/pinn_inv/</span><span class="si">{</span><span class="n">step</span><span class="si">:</span><span class="s2">08d</span><span class="si">}</span><span class="s2">.png&quot;</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">120</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s2">&quot;tight&quot;</span><span class="p">)</span>
+        <span class="n">img_paths</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">step</span><span class="p">)</span> <span class="o">%</span> <span class="mi">5000</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+<span class="n">create_gif</span><span class="p">(</span><span class="s2">&quot;pinn_inv_output.gif&quot;</span><span class="p">,</span> <span class="n">img_paths</span><span class="p">,</span> <span class="n">fps</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/0d4618bef6b9fa3e74e5b75a8e2934c309fd417303452dc91beaf028b8f2fcd6.png" src="../_images/0d4618bef6b9fa3e74e5b75a8e2934c309fd417303452dc91beaf028b8f2fcd6.png" />
+<img alt="../_images/3474382edce28d66b94963f92a6ef2ff86680fd34ca0fed474a93478aa92708e.png" src="../_images/3474382edce28d66b94963f92a6ef2ff86680fd34ca0fed474a93478aa92708e.png" />
+<img alt="../_images/3e1331e99427b18a28fc91d4fcf852d64577bd36081d9fd6c0fd02c05fcfd197.png" src="../_images/3e1331e99427b18a28fc91d4fcf852d64577bd36081d9fd6c0fd02c05fcfd197.png" />
+<img alt="../_images/a4d3d7a367846585853c898879dbccf18eb80a63a7c30fd62d059acce1e17771.png" src="../_images/a4d3d7a367846585853c898879dbccf18eb80a63a7c30fd62d059acce1e17771.png" />
+<img alt="../_images/c5fd5eb47112630b8376e9ae96cae37876593b888089c6ea696575499616a4eb.png" src="../_images/c5fd5eb47112630b8376e9ae96cae37876593b888089c6ea696575499616a4eb.png" />
+<img alt="../_images/f8c627834fc05538e2416974e8c23334907b4c5edfdaa93125bd91f4e121e7df.png" src="../_images/f8c627834fc05538e2416974e8c23334907b4c5edfdaa93125bd91f4e121e7df.png" />
+<img alt="../_images/8b30df0f78be2bf615e7f5302fbef526f6fcd307cd2f8e133f07f001ceff979e.png" src="../_images/8b30df0f78be2bf615e7f5302fbef526f6fcd307cd2f8e133f07f001ceff979e.png" />
+<img alt="../_images/c9a167a75a7004a10c653715260548d7f37c2a71b01aeb92a5d97eadcb4146ac.png" src="../_images/c9a167a75a7004a10c653715260548d7f37c2a71b01aeb92a5d97eadcb4146ac.png" />
+<img alt="../_images/2458a7753ea00310337b353441112f63395c68d25e6141aa536c5805b29395ef.png" src="../_images/2458a7753ea00310337b353441112f63395c68d25e6141aa536c5805b29395ef.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Final Damping: </span><span class="si">{</span><span class="n">net</span><span class="o">.</span><span class="n">damping</span><span class="o">.</span><span class="n">item</span><span class="p">()</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Final Lambda 1: </span><span class="si">{</span><span class="n">lambda1</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">, Lambda 2: </span><span class="si">{</span><span class="n">lambda2</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Final Damping: 0.1120
+Final Lambda 1: 0.2232, Lambda 2: 89.2958
+</pre></div>
+</div>
+</div>
+</div>
+<p>As you see, the model is getting better discovering the <span class="math notranslate nohighlight">\(\zeta\)</span> with each epoch. Try including more data points and tuning the hyperparameters to improve the accuracy.</p>
+</section>
+<section id="solving-parametric-problems-with-pinns">
+<h2>Solving parametric problems with PINNs<a class="headerlink" href="#solving-parametric-problems-with-pinns" title="Link to this heading">#</a></h2>
+<p>So we have seen from the above examples, PINNs can be used as both forward and inverse solvers. However, they offer no significant advantage when the underlying physics is already well known and easily modelled. In such cases, traditional numerical methods are often more efficient and accurate than PINNs.</p>
+<p>Nonetheless, PINNs can outperform classical numerical methods in parametric problems. A parametric problem is one where the governing differential equations depend on certain parameters, meaning the solution of the differential equations vary with different parameter values. In these cases, PINNs can be particularly usefull in learning the mapping from parametes to the solution, which allows for efficient evaluation across a wide range of parameter values.</p>
+<p>We can extend the PINNs for this type of problems analogusly. Lets consider the above toy example again but this time we want to also see how different <span class="math notranslate nohighlight">\(\zeta\)</span> and <span class="math notranslate nohighlight">\(\omega_0\)</span> also changes the solution. So the equation is:</p>
+<div class="math notranslate nohighlight">
+\[ \ddot{u} + 2\zeta \omega_0 \dot{u} + \omega_0^2 u = 0, \]</div>
+<p>Here, <span class="math notranslate nohighlight">\(\zeta\)</span> and <span class="math notranslate nohighlight">\(\omega_0\)</span> are treated as parameters. For each combination of <span class="math notranslate nohighlight">\(\zeta\)</span> and <span class="math notranslate nohighlight">\(\omega_0\)</span>, the system exhibits a different dynamic behavior. To simplify it a bit lets assume <span class="math notranslate nohighlight">\(\zeta\)</span> constant and <span class="math notranslate nohighlight">\(\omega_0\)</span> is a parameter. One way to solve this using a PINN is to include <span class="math notranslate nohighlight">\(\omega_0\)</span> as an additional input to the network, alongside the temporal variable <span class="math notranslate nohighlight">\(t\)</span>. The network would then learn the mapping:</p>
+<div class="math notranslate nohighlight">
+\[
+(t, \omega_0) \mapsto u(t; \omega_0)
+\]</div>
+<p>There are different ways to parametrize equations, but an easy and good way of doing so is:</p>
+<div class="math notranslate nohighlight">
+\[ u(t, \omega_0) = \sum_{i=1}^m b_i(\omega_0) \cdot t_i(t), \]</div>
+<p>If you are familiar with finite element modeling, isogeometric analysis or many other types of numerical approximation methods, you should recognize how similar this is to basis function expansion, <span class="math notranslate nohighlight">\(t_i(t)\)</span> are the basis functions and <span class="math notranslate nohighlight">\(b_i(\omega_0)\)</span> are the coefficients or weights. Normally in the aforementioned methods, the basis functions are fixed, piece-wise linear functions in FEM, b-splines or NURBS in isogeometric analysis, but here they are not fixed and are learnable.</p>
+<p>We can build this network using pairs of networks:</p>
+<p>Branch Network, <span class="math notranslate nohighlight">\(b_i(\omega_0)\)</span>: Encodes the parameter <span class="math notranslate nohighlight">\(\omega_0\)</span>.</p>
+<p>Trunk Network, <span class="math notranslate nohighlight">\(t_i(t)\)</span>: Encodes the input <span class="math notranslate nohighlight">\(t\)</span>.</p>
+<p><span class="math notranslate nohighlight">\(m\)</span> is the number of branch-trunk pairs. Can also be treated as the number of basis functions. So it determines the expressive power of the network.</p>
+<p>Okay now lets start with implementing this architecture</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">ParametricModel</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">branches</span><span class="p">,</span> <span class="n">trunks</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">branches</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">ModuleList</span><span class="p">(</span><span class="n">branches</span><span class="p">)</span> <span class="c1"># list of branch networks</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">trunks</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">ModuleList</span><span class="p">(</span><span class="n">trunks</span><span class="p">)</span> <span class="c1"># list of trunk networks</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">omega</span><span class="p">):</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="c1"># Iterate over the branch-trunk pairs and sum their multiplications</span>
+        <span class="k">for</span> <span class="n">b</span><span class="p">,</span> <span class="n">t_net</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">branches</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">trunks</span><span class="p">):</span>
+            <span class="n">result</span> <span class="o">+=</span> <span class="n">b</span><span class="p">(</span><span class="n">omega</span><span class="p">)</span> <span class="o">*</span> <span class="n">t_net</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">result</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now that the architechure is build, we will define the losses. We wont introduce any data loss this time. Insead we can regularize the problem by its initial conditions which were:</p>
+<div class="math notranslate nohighlight">
+\[
+u(0) = 1~~,~~\dot{u}(0) = 0~.
+\]</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># PDE Loss</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">loss_pde</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">omega</span><span class="p">):</span>
+    <span class="n">t</span><span class="o">.</span><span class="n">requires_grad_</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">omega</span><span class="o">.</span><span class="n">requires_grad_</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="n">u</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">omega</span><span class="p">)</span>
+    <span class="n">u_t</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">autograd</span><span class="o">.</span><span class="n">grad</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">grad_outputs</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">ones_like</span><span class="p">(</span><span class="n">u</span><span class="p">),</span> <span class="n">create_graph</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">u_tt</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">autograd</span><span class="o">.</span><span class="n">grad</span><span class="p">(</span><span class="n">u_t</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">grad_outputs</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">ones_like</span><span class="p">(</span><span class="n">u_t</span><span class="p">),</span> <span class="n">create_graph</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="n">residual</span> <span class="o">=</span> <span class="n">u_tt</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="mf">0.1</span> <span class="o">*</span> <span class="n">omega</span> <span class="o">*</span> <span class="n">u_t</span> <span class="o">+</span> <span class="n">omega</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">u</span>
+    <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">square</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">residual</span><span class="p">))</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">loss_ic</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">omega</span><span class="p">):</span>
+    <span class="n">t0</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">omega</span><span class="p">)</span><span class="o">.</span><span class="n">requires_grad_</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">u0</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">t0</span><span class="p">,</span> <span class="n">omega</span><span class="p">)</span>
+    <span class="n">u0_t</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">autograd</span><span class="o">.</span><span class="n">grad</span><span class="p">(</span><span class="n">u0</span><span class="p">,</span> <span class="n">t0</span><span class="p">,</span> <span class="n">grad_outputs</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">ones_like</span><span class="p">(</span><span class="n">u0</span><span class="p">),</span> <span class="n">create_graph</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">return</span> <span class="p">((</span><span class="n">u0</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="o">+</span> <span class="p">(</span><span class="n">u0_t</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now the training loop! Here I’ve implemented couple new things in the training algorithm. Specifically keeping record of the best model parameters and random sampling. So the network will save the best performing iteration, before we were getting the last iteration of network parameters <code class="docutils literal notranslate"><span class="pre">Last</span> <span class="pre">not</span> <span class="pre">equal</span> <span class="pre">Best</span></code>. Also now we are feeding randomly sampled points for <span class="math notranslate nohighlight">\(t\)</span> and also <span class="math notranslate nohighlight">\(\omega_0\)</span>, <span class="math notranslate nohighlight">\(t\)</span> is in between 0 and 1 and <span class="math notranslate nohighlight">\(\omega_0\)</span> is in between 1 and 30.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">train_parametric</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">num_iter</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">num_collocation</span><span class="o">=</span><span class="mi">128</span><span class="p">,</span> <span class="n">num_omegas</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">lr</span><span class="o">=</span><span class="mf">1e-3</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="s2">&quot;cpu&quot;</span><span class="p">,</span> <span class="n">ode_weight</span><span class="o">=</span><span class="mf">1e-3</span><span class="p">,</span> <span class="n">ic_weight</span><span class="o">=</span><span class="mf">1.0</span><span class="p">):</span>
+    <span class="n">optimizer</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">optim</span><span class="o">.</span><span class="n">Adam</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">lr</span><span class="o">=</span><span class="n">lr</span><span class="p">)</span>
+    <span class="n">losses</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">best_loss</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="s1">&#39;inf&#39;</span><span class="p">)</span>  
+    <span class="n">best_model_state</span> <span class="o">=</span> <span class="kc">None</span>  
+
+    <span class="n">model</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">train</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_iter</span><span class="p">):</span>
+        <span class="n">t</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="n">num_collocation</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">device</span><span class="p">)</span>  <span class="c1"># torch.rand generates random numbers in [0, 1)</span>
+        <span class="n">omegas</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="n">num_omegas</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">device</span><span class="p">)</span> <span class="o">*</span> <span class="mi">29</span> <span class="o">+</span> <span class="mi">1</span>  <span class="c1"># generates random numbers in [0, 1), and then scal it to [1, 30)</span>
+        
+        <span class="n">t_rep</span> <span class="o">=</span> <span class="n">t</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="n">num_omegas</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">omegas_rep</span> <span class="o">=</span> <span class="n">omegas</span><span class="o">.</span><span class="n">repeat_interleave</span><span class="p">(</span><span class="n">num_collocation</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+        <span class="n">ode_loss</span> <span class="o">=</span> <span class="n">loss_pde</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">t_rep</span><span class="p">,</span> <span class="n">omegas_rep</span><span class="p">)</span>
+        <span class="n">ic_loss</span> <span class="o">=</span> <span class="n">loss_ic</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">omegas_rep</span><span class="p">)</span>
+
+        <span class="n">total_loss</span> <span class="o">=</span> <span class="n">ode_weight</span> <span class="o">*</span> <span class="n">ode_loss</span> <span class="o">+</span> <span class="n">ic_weight</span> <span class="o">*</span> <span class="n">ic_loss</span>
+
+        <span class="n">optimizer</span><span class="o">.</span><span class="n">zero_grad</span><span class="p">()</span>
+        <span class="n">total_loss</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
+        <span class="n">optimizer</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
+
+        <span class="n">losses</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">total_loss</span><span class="o">.</span><span class="n">item</span><span class="p">())</span>
+
+        <span class="k">if</span> <span class="n">total_loss</span><span class="o">.</span><span class="n">item</span><span class="p">()</span> <span class="o">&lt;</span> <span class="n">best_loss</span><span class="p">:</span>
+            <span class="n">best_loss</span> <span class="o">=</span> <span class="n">total_loss</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+            <span class="n">best_model_state</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">state_dict</span><span class="p">()</span> 
+
+        <span class="k">if</span> <span class="n">i</span> <span class="o">%</span> <span class="mi">1000</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Iter </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">, loss </span><span class="si">{</span><span class="n">total_loss</span><span class="o">.</span><span class="n">item</span><span class="p">()</span><span class="si">:</span><span class="s2">.3e</span><span class="si">}</span><span class="s2">, ODE Loss </span><span class="si">{</span><span class="n">ode_loss</span><span class="o">.</span><span class="n">item</span><span class="p">()</span><span class="si">:</span><span class="s2">.3e</span><span class="si">}</span><span class="s2">, IC Loss </span><span class="si">{</span><span class="n">ic_loss</span><span class="o">.</span><span class="n">item</span><span class="p">()</span><span class="si">:</span><span class="s2">.3e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+
+    <span class="k">return</span> <span class="n">model</span><span class="p">,</span> <span class="n">losses</span><span class="p">,</span> <span class="n">best_model_state</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">load_best_model</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">best_model_state</span><span class="p">):</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">load_state_dict</span><span class="p">(</span><span class="n">best_model_state</span><span class="p">)</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">model</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now we create the model with m=5, branch_width=64, branch_depth=3, trunk_width=64, trunk_depth=3 and train it 10000 epochs, each epoch it will generate 256 random points for <span class="math notranslate nohighlight">\(t\)</span> and 10 random <span class="math notranslate nohighlight">\(\omega_0\)</span> values</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># switch to gpu or mps if available, in my pc GPU train faster in this case</span>
+<span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">is_available</span><span class="p">():</span>
+    <span class="n">device</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="s1">&#39;cuda&#39;</span><span class="p">)</span>
+<span class="k">elif</span> <span class="n">torch</span><span class="o">.</span><span class="n">backends</span><span class="o">.</span><span class="n">mps</span><span class="o">.</span><span class="n">is_available</span><span class="p">():</span>
+    <span class="n">device</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="s1">&#39;mps&#39;</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">device</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="s1">&#39;cpu&#39;</span><span class="p">)</span>
+
+<span class="c1"># device = torch.device(&#39;cpu&#39;)</span>
+
+<span class="n">branch_arch</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">64</span><span class="p">,</span> <span class="mi">64</span><span class="p">,</span> <span class="mi">64</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>  <span class="c1"># input_dim=1, hidden_dim=64, output_dim=1, depth=3</span>
+<span class="n">branch_act</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Tanh</span> 
+<span class="n">trunk_arch</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">64</span><span class="p">,</span> <span class="mi">64</span><span class="p">,</span> <span class="mi">64</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>  <span class="c1"># input_dim=1, hidden_dim=64, output_dim=1, depth=3</span>
+<span class="n">trunk_act</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Tanh</span>
+<span class="n">m</span> <span class="o">=</span> <span class="mi">5</span>  <span class="c1"># number of branches and trunks</span>
+
+<span class="n">branches</span> <span class="o">=</span> <span class="p">[</span><span class="n">MLP</span><span class="p">(</span><span class="n">branch_arch</span><span class="p">,</span> <span class="n">branch_act</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">m</span><span class="p">)]</span>  <span class="c1"># creates a list of m branch networks all same architecture</span>
+<span class="n">trunks</span> <span class="o">=</span> <span class="p">[</span><span class="n">MLP</span><span class="p">(</span><span class="n">trunk_arch</span><span class="p">,</span> <span class="n">trunk_act</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">m</span><span class="p">)]</span> <span class="c1"># creates a list of m trunk networks all same architecture</span>
+
+<span class="n">model</span> <span class="o">=</span> <span class="n">ParametricModel</span><span class="p">(</span><span class="n">branches</span><span class="p">,</span> <span class="n">trunks</span><span class="p">)</span> <span class="c1"># combine branch and trunk networks into a single model</span>
+
+<span class="c1"># Train the model, it might take a while, with Nvidia 4090 it takes around 1m 40s</span>
+<span class="n">model</span><span class="p">,</span> <span class="n">losses</span><span class="p">,</span> <span class="n">best_model_state</span> <span class="o">=</span> <span class="n">train_parametric</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">num_iter</span><span class="o">=</span><span class="mi">5000</span><span class="p">,</span> <span class="n">num_collocation</span><span class="o">=</span><span class="mi">128</span><span class="p">,</span> <span class="n">num_omegas</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">lr</span><span class="o">=</span><span class="mf">1e-3</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">device</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Iter 0, loss 1.233e+00, ODE Loss 1.735e+02, IC Loss 1.059e+00
+Iter 1000, loss 1.992e-01, ODE Loss 1.099e+02, IC Loss 8.931e-02
+Iter 2000, loss 8.969e-02, ODE Loss 2.143e+00, IC Loss 8.755e-02
+Iter 3000, loss 5.250e-02, ODE Loss 3.410e+01, IC Loss 1.841e-02
+Iter 4000, loss 1.676e-01, ODE Loss 1.621e+02, IC Loss 5.420e-03
+</pre></div>
+</div>
+</div>
+</div>
+<p>The initial condition loss seems to be decreasing and quite low, but there is a problem with the ode loss. Lets also plot the prediction of the network vs the real solution for omega values 5.0, 10.0, 15.0, 20.0, 25.0, 30.0</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nd">@torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">()</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">evaluate_model</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">omega_vals</span><span class="p">,</span> <span class="n">res</span><span class="o">=</span><span class="mi">200</span><span class="p">):</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span>
+    <span class="n">device</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">parameters</span><span class="p">())</span><span class="o">.</span><span class="n">device</span>  <span class="c1"># Get the device of the model parameters</span>
+    <span class="n">t</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">res</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">device</span><span class="p">)</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>  
+
+    <span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">12</span><span class="p">))</span>  
+    <span class="n">axes</span> <span class="o">=</span> <span class="n">axes</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>  
+
+    <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">omega_0</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">omega_vals</span><span class="p">):</span>
+        <span class="n">omega</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([[</span><span class="n">omega_0</span><span class="p">]],</span> <span class="n">device</span><span class="o">=</span><span class="n">device</span><span class="p">)</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">u_pred</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">omega</span><span class="p">)</span><span class="o">.</span><span class="n">squeeze</span><span class="p">()</span><span class="o">.</span><span class="n">cpu</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+        <span class="n">u_real</span> <span class="o">=</span> <span class="n">analytical_solution</span><span class="p">(</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">omega_0</span><span class="p">,</span> <span class="n">t</span><span class="o">.</span><span class="n">cpu</span><span class="p">())</span><span class="o">.</span><span class="n">cpu</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+
+        <span class="n">ax</span> <span class="o">=</span> <span class="n">axes</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">cpu</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">(),</span> <span class="n">u_pred</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;PINN Prediction&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;steelblue&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">cpu</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">(),</span> <span class="n">u_real</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;Exact Solution&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;yellowgreen&quot;</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;t&quot;</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;u(t)&quot;</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;ω₀=</span><span class="si">{</span><span class="n">omega_0</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">idx</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">omega_vals</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">axes</span><span class="p">)):</span>
+        <span class="n">fig</span><span class="o">.</span><span class="n">delaxes</span><span class="p">(</span><span class="n">axes</span><span class="p">[</span><span class="n">idx</span><span class="p">])</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="c1"># Define the omega samples for evaluation</span>
+<span class="n">omega_samples</span> <span class="o">=</span> <span class="p">[</span><span class="mf">5.0</span><span class="p">,</span> <span class="mf">10.0</span><span class="p">,</span> <span class="mf">15.0</span><span class="p">,</span> <span class="mf">20.0</span><span class="p">,</span> <span class="mf">25.0</span><span class="p">,</span> <span class="mf">30.0</span><span class="p">]</span>
+
+<span class="n">best_model</span> <span class="o">=</span> <span class="n">load_best_model</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">best_model_state</span><span class="p">)</span> <span class="c1"># load the best model state</span>
+<span class="n">evaluate_model</span><span class="p">(</span><span class="n">best_model</span><span class="p">,</span> <span class="n">omega_samples</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/911cf14af7c0fec04ae79928d1bd1bcbd6be3811c4f4751777eb7a8e39e4e9a3.png" src="../_images/911cf14af7c0fec04ae79928d1bd1bcbd6be3811c4f4751777eb7a8e39e4e9a3.png" />
+</div>
+</div>
+<p>Seems like the prediction is really bad. Play with the hyperparameters to tune the network. See if you can improve the accuracy.</p>
+<p>You will see that it is not an easy task to tune the hyperparameters in this case. There are several reasons behind it, but the most dominant 2 of them are:</p>
+<ol class="arabic simple">
+<li><p><strong>Dimensionality</strong>: Although we simplified the model, the dimensionality makes the problem hard to train.</p></li>
+<li><p><strong>High Frequencies</strong>: Neural networks are proven to be biased towards the low-frequency components. So they might struggle to learn the high-frequency information.</p></li>
+</ol>
+<p>How can we improve the model and get reasonable predictions then? The answer is: <strong>Nondimensionalization and Fourier Features Encoding</strong>.</p>
+<section id="nondimensionalization">
+<h3>Nondimensionalization<a class="headerlink" href="#nondimensionalization" title="Link to this heading">#</a></h3>
+<p>Non-dimensionalization is a mathematical technique used to simplify equations by reducing the number of parameters and ensuring that the variables are expressed in terms of dimensionless quantities. This process not only reduces the complexity of the problem but also improves numerical stability and generalization. By scaling the variables appropriately, we can make the problem easier for the neural network to learn.</p>
+<p>To nondimensionalize our equation:</p>
+<div class="math notranslate nohighlight">
+\[
+\ddot{u}(t) + 2\zeta \omega_0 \dot{u}(t) + \omega_0^2 u(t) = 0,
+\]</div>
+<p>we first have to define the non-dimensional variables:</p>
+<ol class="arabic simple">
+<li><p><strong>Dimensionless Time</strong>:
+$<span class="math notranslate nohighlight">\(
+\bar{t} = \frac{t}{t^*}
+\)</span>$</p></li>
+<li><p><strong>Dimensionless Displacement</strong>:
+$<span class="math notranslate nohighlight">\(
+\bar{u} = \frac{u}{u^*}
+\)</span>$</p></li>
+</ol>
+<p><span class="math notranslate nohighlight">\(\bar{(\cdot{})}\)</span> is a non-dimensional vaariable or parameter and <span class="math notranslate nohighlight">\((\cdot{})^*\)</span> refers to their scales. Then we can write the dimensional variables in terms of non-dimensional ones and their scales as:</p>
+<p><span class="math notranslate nohighlight">\(u = u^* \cdot \bar{u}\)</span>    and   <span class="math notranslate nohighlight">\(t = t^* \cdot \bar{t}\)</span></p>
+<p>We can then compute the derivatives of <span class="math notranslate nohighlight">\(u(t)\)</span> with respect to <span class="math notranslate nohighlight">\(t\)</span> in terms of <span class="math notranslate nohighlight">\(\bar{t}\)</span>:</p>
+<ol class="arabic simple">
+<li><p>First derivative:
+$<span class="math notranslate nohighlight">\(
+\dot{u}(t) = \frac{d u}{d t} = \frac{d (u^*  \bar{u})}{d (t^*\bar{t})} = \frac{u^*}{t^*} \frac{d \bar{u}}{d \bar{t}}.
+\)</span>$</p></li>
+</ol>
+<p>Since <span class="math notranslate nohighlight">\((\cdot{})^*\)</span> are just scalars, we can take them out of derivaties. Then for the second derivative:</p>
+<ol class="arabic simple" start="2">
+<li><p>Second derivative:
+$<span class="math notranslate nohighlight">\(
+\ddot{u}(t) = \frac{d^2 u}{d t^2} = \frac{d^2 (u^* \bar{u})}{d (t^*\bar{t})^2} = \frac{u^*}{{t^*}^2} \frac{d^2 \bar{u}}{d \bar{t}^2}.
+\)</span>$</p></li>
+</ol>
+<p>Now we can substitute these expressions into the original equation to get:</p>
+<div class="math notranslate nohighlight">
+\[
+\frac{u^*}{{t^*}^2} \cdot \frac{d^2 \bar{u}}{d \bar{t}^2} + 2\zeta \omega_0 \frac{u^*}{t^*} \cdot \frac{d \bar{u}}{d \bar{t}} +\omega_0^2 u^* \cdot \bar{u} = 0.
+\]</div>
+<p>Divide the equation by <span class="math notranslate nohighlight">\(\frac{u^*}{{t^*}^2}\)</span></p>
+<div class="math notranslate nohighlight">
+\[
+\frac{d^2 \bar{u}}{d \bar{t}^2} + 2\zeta \omega_0 {t^*} \cdot \frac{d \bar{u}}{d \bar{t}} +\omega_0^2{t^*}^2 \cdot \bar{u} = 0.
+\]</div>
+<p>And lastly we can choose the scales for the variables, this is very important we want to get rid of as many parameters and dimensions as possible. <span class="math notranslate nohighlight">\(\zeta\)</span> is already a dimensionless ratio, so only dimension here left are <span class="math notranslate nohighlight">\(t^*\)</span> and <span class="math notranslate nohighlight">\(\omega_0\)</span>. if we choose <span class="math notranslate nohighlight">\(t^* = 1/\omega_0\)</span>. Equation reduces to:</p>
+<div class="math notranslate nohighlight">
+\[
+\frac{d^2 \bar{u}}{d \bar{t}^2} + 2\zeta \cdot \frac{d \bar{u}}{d \bar{t}} + \bar{u} = 0.
+\]</div>
+<p>Which makes our equation dimensionless!</p>
+</section>
+<section id="fourier-features-encoding">
+<h3>Fourier Features Encoding<a class="headerlink" href="#fourier-features-encoding" title="Link to this heading">#</a></h3>
+<p>Fourier Features Encoding is a technique introduced in the paper <strong>“Fourier Features Let Networks Learn High Frequency Functions in Low Dimensional Domains”</strong> by Tancik et al. (2020). This method is designed to help neural networks learn high-frequency functions more effectively, addressing the inherent bias of neural networks toward low-frequency components.</p>
+</section>
+<section id="how-fourier-features-work">
+<h3>How Fourier Features Work<a class="headerlink" href="#how-fourier-features-work" title="Link to this heading">#</a></h3>
+<p>Given an input vector <span class="math notranslate nohighlight">\(\mathbf{x} \in \mathbb{R}^d\)</span>, the Fourier Features Encoding maps it to a higher-dimensional space using sine and cosine functions:</p>
+<div class="math notranslate nohighlight">
+\[
+\gamma(\mathbf{x}) = \left[\sin(2\pi \mathbf{B} \mathbf{x}), \cos(2\pi \mathbf{B} \mathbf{x})\right],
+\]</div>
+<p>where:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\mathbf{B} \in \mathbb{R}^{m \times d}\)</span> is a matrix of random frequencies, typically sampled from a Gaussian distribution with variance <span class="math notranslate nohighlight">\(\sigma^2\)</span>.</p></li>
+<li><p><span class="math notranslate nohighlight">\(m\)</span> is the number of Fourier features (i.e., the dimensionality of the transformed space).</p></li>
+</ul>
+<p>The resulting encoding <span class="math notranslate nohighlight">\(\gamma(\mathbf{x})\)</span> has a dimensionality of <span class="math notranslate nohighlight">\(2m\)</span>, as it concatenates both sine and cosine components.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># fourier encoding layer</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">FourierEncoding</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">in_features</span><span class="p">,</span> <span class="n">num_frequencies</span><span class="p">,</span> <span class="n">sigma</span><span class="o">=</span><span class="mf">0.6</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="n">B</span> <span class="o">=</span> <span class="n">sigma</span> <span class="o">*</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">num_frequencies</span><span class="p">,</span> <span class="n">in_features</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">register_buffer</span><span class="p">(</span><span class="s2">&quot;B&quot;</span><span class="p">,</span> <span class="n">B</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="n">x_proj</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">x</span> <span class="o">@</span> <span class="bp">self</span><span class="o">.</span><span class="n">B</span><span class="o">.</span><span class="n">T</span>
+        <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">([</span><span class="n">torch</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x_proj</span><span class="p">),</span> <span class="n">torch</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">x_proj</span><span class="p">)],</span> <span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># Define the non dimensional loss function for the ODE</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">loss_ode_non_dim</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">t_bar</span><span class="p">,</span> <span class="n">omega</span><span class="p">):</span>
+    <span class="n">t_bar</span><span class="o">.</span><span class="n">requires_grad_</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">omega</span><span class="o">.</span><span class="n">requires_grad_</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="n">u_bar</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">t_bar</span><span class="p">,</span> <span class="n">omega</span><span class="p">)</span>
+    <span class="n">u_t_bar</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">autograd</span><span class="o">.</span><span class="n">grad</span><span class="p">(</span><span class="n">u_bar</span><span class="p">,</span> <span class="n">t_bar</span><span class="p">,</span> <span class="n">grad_outputs</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">ones_like</span><span class="p">(</span><span class="n">u_bar</span><span class="p">),</span> <span class="n">create_graph</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">u_tt_bar</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">autograd</span><span class="o">.</span><span class="n">grad</span><span class="p">(</span><span class="n">u_t_bar</span><span class="p">,</span> <span class="n">t_bar</span><span class="p">,</span> <span class="n">grad_outputs</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">ones_like</span><span class="p">(</span><span class="n">u_t_bar</span><span class="p">),</span> <span class="n">create_graph</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="n">residual</span> <span class="o">=</span> <span class="n">u_tt_bar</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="mf">0.1</span> <span class="o">*</span> <span class="n">u_t_bar</span> <span class="o">+</span> <span class="n">u_bar</span>
+    <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">square</span><span class="p">(</span><span class="n">residual</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Then we can use this fourier feaures encoding layer as the first layer of the trunk network. And also define the architecture. This time lets use a narrower network for both trunk and branch. Also lets choose only 1 branch-trunk pair. Overall significantly simpler model than previous one which failed.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fourier_features</span> <span class="o">=</span> <span class="mi">100</span>
+
+<span class="n">branch_arch</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="p">[</span><span class="mi">16</span><span class="p">]</span> <span class="o">*</span> <span class="mi">3</span> <span class="o">+</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span>  <span class="c1"># input_dim=1, hidden_dim=64, output_dim=1, depth=3</span>
+<span class="n">branch_act</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Tanh</span> 
+<span class="n">trunk_arch</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2</span><span class="o">*</span><span class="n">fourier_features</span><span class="p">]</span> <span class="o">+</span> <span class="p">[</span><span class="mi">16</span><span class="p">]</span> <span class="o">*</span> <span class="mi">3</span> <span class="o">+</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span>  <span class="c1"># input_dim= 200 because we have 100 sine and 100 cosine features, hidden_dim=16, output_dim=1, depth=3</span>
+<span class="n">trunk_act</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Tanh</span>
+
+<span class="n">m</span> <span class="o">=</span> <span class="mi">1</span>  <span class="c1"># number of branches and trunks</span>
+
+<span class="n">branches_fourier</span> <span class="o">=</span> <span class="p">[</span><span class="n">MLP</span><span class="p">(</span><span class="n">branch_arch</span><span class="p">,</span> <span class="n">branch_act</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">m</span><span class="p">)]</span>    <span class="c1"># creates a list of m branch networks all same architecture</span>
+<span class="n">trunks_fourier</span> <span class="o">=</span> <span class="p">[</span><span class="n">nn</span><span class="o">.</span><span class="n">Sequential</span><span class="p">(</span><span class="n">FourierEncoding</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">fourier_features</span><span class="p">),</span> <span class="n">MLP</span><span class="p">(</span><span class="n">trunk_arch</span><span class="p">,</span> <span class="n">trunk_act</span><span class="p">))</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">m</span><span class="p">)]</span>
+
+<span class="n">model_fourier</span> <span class="o">=</span> <span class="n">ParametricModel</span><span class="p">(</span><span class="n">branches_fourier</span><span class="p">,</span> <span class="n">trunks_fourier</span><span class="p">)</span>  <span class="c1"># combine branch and trunk networks into a single model with Fourier encoding</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Training loop as before but with the sclaed variables and fourier encoding</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">train_parametric_non_dimensional</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">num_iter</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">num_collocation</span><span class="o">=</span><span class="mi">128</span><span class="p">,</span> <span class="n">num_omegas</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">lr</span><span class="o">=</span><span class="mf">1e-3</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="s2">&quot;cpu&quot;</span><span class="p">,</span> <span class="n">ode_weight</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">ic_weight</span><span class="o">=</span><span class="mf">1.0</span><span class="p">):</span>
+    <span class="n">optimizer</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">optim</span><span class="o">.</span><span class="n">Adam</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">lr</span><span class="o">=</span><span class="n">lr</span><span class="p">)</span>
+    <span class="n">losses</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">best_loss</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="s1">&#39;inf&#39;</span><span class="p">)</span>  
+    <span class="n">best_model_state</span> <span class="o">=</span> <span class="kc">None</span>  
+    <span class="n">model</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+
+    <span class="n">model</span><span class="o">.</span><span class="n">train</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_iter</span><span class="p">):</span>
+        <span class="n">t</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="n">num_collocation</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">device</span><span class="p">)</span>  <span class="c1"># torch.rand generates random numbers in [0, 1)</span>
+        <span class="n">omegas</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="n">num_omegas</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">device</span><span class="p">)</span> <span class="o">*</span> <span class="mi">29</span> <span class="o">+</span> <span class="mi">1</span>  <span class="c1"># generates random numbers in [0, 1), and then scal it to [1, 30)</span>
+        
+        <span class="n">t_rep</span> <span class="o">=</span> <span class="n">t</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="n">num_omegas</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">omegas_rep</span> <span class="o">=</span> <span class="n">omegas</span><span class="o">.</span><span class="n">repeat_interleave</span><span class="p">(</span><span class="n">num_collocation</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+        <span class="n">t_star</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">omegas_rep</span>  <span class="c1"># non-dimensional time</span>
+        <span class="n">t_bar</span> <span class="o">=</span> <span class="n">t_rep</span> <span class="o">/</span> <span class="n">t_star</span>
+
+        <span class="n">ode_loss</span> <span class="o">=</span> <span class="n">loss_ode_non_dim</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">t_bar</span><span class="p">,</span> <span class="n">omegas_rep</span><span class="p">)</span>
+        <span class="n">ic_loss</span> <span class="o">=</span> <span class="n">loss_ic</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">omegas_rep</span><span class="p">)</span>
+
+        <span class="n">total_loss</span> <span class="o">=</span> <span class="n">ode_weight</span> <span class="o">*</span> <span class="n">ode_loss</span> <span class="o">+</span> <span class="n">ic_weight</span> <span class="o">*</span> <span class="n">ic_loss</span>
+
+        <span class="n">optimizer</span><span class="o">.</span><span class="n">zero_grad</span><span class="p">()</span>
+        <span class="n">total_loss</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
+        <span class="n">optimizer</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
+
+        <span class="n">losses</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">total_loss</span><span class="o">.</span><span class="n">item</span><span class="p">())</span>
+
+        <span class="k">if</span> <span class="n">total_loss</span><span class="o">.</span><span class="n">item</span><span class="p">()</span> <span class="o">&lt;</span> <span class="n">best_loss</span><span class="p">:</span>
+            <span class="n">best_loss</span> <span class="o">=</span> <span class="n">total_loss</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+            <span class="n">best_model_state</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">state_dict</span><span class="p">()</span> 
+
+        <span class="k">if</span> <span class="n">i</span> <span class="o">%</span> <span class="mi">1000</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Iter </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">, loss </span><span class="si">{</span><span class="n">total_loss</span><span class="o">.</span><span class="n">item</span><span class="p">()</span><span class="si">:</span><span class="s2">.3e</span><span class="si">}</span><span class="s2">, ODE Loss </span><span class="si">{</span><span class="n">ode_loss</span><span class="o">.</span><span class="n">item</span><span class="p">()</span><span class="si">:</span><span class="s2">.3e</span><span class="si">}</span><span class="s2">, IC Loss </span><span class="si">{</span><span class="n">ic_loss</span><span class="o">.</span><span class="n">item</span><span class="p">()</span><span class="si">:</span><span class="s2">.3e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">model</span><span class="p">,</span> <span class="n">losses</span><span class="p">,</span> <span class="n">best_model_state</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># train the model with Fourier encoding</span>
+<span class="n">model_fourier</span><span class="p">,</span> <span class="n">losses_fourier</span><span class="p">,</span> <span class="n">best_model_state_fourier</span> <span class="o">=</span> <span class="n">train_parametric_non_dimensional</span><span class="p">(</span><span class="n">model_fourier</span><span class="p">,</span> <span class="n">num_iter</span><span class="o">=</span><span class="mi">10000</span><span class="p">,</span> <span class="n">num_collocation</span><span class="o">=</span><span class="mi">128</span><span class="p">,</span> <span class="n">num_omegas</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">lr</span><span class="o">=</span><span class="mf">1e-3</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">device</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Iter 0, loss 1.052e+00, ODE Loss 3.726e-02, IC Loss 1.015e+00
+Iter 1000, loss 9.839e-04, ODE Loss 9.484e-04, IC Loss 3.543e-05
+Iter 2000, loss 2.562e-04, ODE Loss 2.554e-04, IC Loss 8.056e-07
+Iter 3000, loss 8.393e-05, ODE Loss 7.982e-05, IC Loss 4.112e-06
+Iter 4000, loss 1.187e-03, ODE Loss 1.178e-03, IC Loss 8.615e-06
+Iter 5000, loss 2.588e-04, ODE Loss 2.567e-04, IC Loss 2.070e-06
+Iter 6000, loss 3.797e-04, ODE Loss 3.794e-04, IC Loss 3.288e-07
+Iter 7000, loss 4.864e-04, ODE Loss 4.861e-04, IC Loss 2.317e-07
+Iter 8000, loss 2.048e-05, ODE Loss 2.034e-05, IC Loss 1.373e-07
+Iter 9000, loss 6.399e-05, ODE Loss 6.389e-05, IC Loss 1.010e-07
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">zeta</span> <span class="o">=</span> <span class="mf">0.1</span>  <span class="c1"># damping ratio</span>
+
+<span class="c1"># Evaluate the model with the non-dimensional time and Fourier encoding</span>
+<span class="nd">@torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">()</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">evaluate_nondim_model</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">omega_vals</span><span class="p">,</span> <span class="n">res</span><span class="o">=</span><span class="mi">200</span><span class="p">):</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span>
+    <span class="n">device</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">parameters</span><span class="p">())</span><span class="o">.</span><span class="n">device</span>
+    <span class="n">t</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">res</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">device</span><span class="p">)</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>  
+
+    <span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">12</span><span class="p">))</span>  
+    <span class="n">axes</span> <span class="o">=</span> <span class="n">axes</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>  
+
+    <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">omega_0</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">omega_vals</span><span class="p">):</span>
+        <span class="n">omega</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([[</span><span class="n">omega_0</span><span class="p">]],</span> <span class="n">device</span><span class="o">=</span><span class="n">device</span><span class="p">)</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">t_bar</span> <span class="o">=</span> <span class="n">t</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="n">omega_0</span><span class="p">)</span>
+        <span class="n">u_pred</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">t_bar</span><span class="p">,</span> <span class="n">omega</span><span class="p">)</span><span class="o">.</span><span class="n">squeeze</span><span class="p">()</span><span class="o">.</span><span class="n">cpu</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+        <span class="n">u_real</span> <span class="o">=</span> <span class="n">analytical_solution</span><span class="p">(</span><span class="n">zeta</span><span class="p">,</span> <span class="n">omega_0</span><span class="p">,</span> <span class="n">t</span><span class="o">.</span><span class="n">cpu</span><span class="p">())</span><span class="o">.</span><span class="n">cpu</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+
+        <span class="n">ax</span> <span class="o">=</span> <span class="n">axes</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">cpu</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">(),</span> <span class="n">u_pred</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;PINN Prediction&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;steelblue&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">cpu</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">(),</span> <span class="n">u_real</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;Exact Solution&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;yellowgreen&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;t&quot;</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;u(t)&quot;</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;ω₀=</span><span class="si">{</span><span class="n">omega_0</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">idx</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">omega_vals</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">axes</span><span class="p">)):</span>
+        <span class="n">fig</span><span class="o">.</span><span class="n">delaxes</span><span class="p">(</span><span class="n">axes</span><span class="p">[</span><span class="n">idx</span><span class="p">])</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="n">best_model_fourier</span> <span class="o">=</span> <span class="n">load_best_model</span><span class="p">(</span><span class="n">model_fourier</span><span class="p">,</span> <span class="n">best_model_state_fourier</span><span class="p">)</span> <span class="c1"># load the best model state</span>
+
+<span class="n">omega_samples</span> <span class="o">=</span> <span class="p">[</span><span class="mf">5.0</span><span class="p">,</span> <span class="mf">10.0</span><span class="p">,</span> <span class="mf">15.0</span><span class="p">,</span> <span class="mf">20.0</span><span class="p">,</span> <span class="mf">25.0</span><span class="p">,</span> <span class="mf">30.0</span><span class="p">]</span>
+<span class="n">evaluate_nondim_model</span><span class="p">(</span><span class="n">best_model_fourier</span><span class="p">,</span> <span class="n">omega_samples</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/1d4996823ef23a721f64a280d635cd90a335a35a2fcd3198c7e1c293b8251824.png" src="../_images/1d4996823ef23a721f64a280d635cd90a335a35a2fcd3198c7e1c293b8251824.png" />
+</div>
+</div>
+<p><strong>Voilà!</strong> Prediction is in perfect agrement with the exact solution. You can see the drastic effect of non-dimensionalization and fourier features encoding. Employing these methods simplified the problem significantly and a simpler model could even learn the relation and have proper predictions.</p>
+</section>
+<section id="references">
+<h3>References<a class="headerlink" href="#references" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Raissi, M., Perdikaris, P., &amp; Karniadakis, G. E. (2017). Physics-informed neural networks: A deep learning framework for solving forward and inverse problems involving nonlinear partial differential equations. Journal of Computational Physics, 378, 686–707. <a class="reference external" href="https://doi.org/10.1016/j.jcp.2018.10.045">https://doi.org/10.1016/j.jcp.2018.10.045</a></p></li>
+<li><p>Moseley, B. So what is a physics-informed neural network? <a class="reference external" href="https://benmoseley.blog/my-research/so-what-is-a-physics-informed-neural-network/">https://benmoseley.blog/my-research/so-what-is-a-physics-informed-neural-network/</a></p></li>
+<li><p>Tancik, M., Srinivasan, P. P., Mildenhall, B., Fridovich-Keil, S., Raghavan, N., Singhal, U., Ramamoorthi, R., Barron, J. T., &amp; Ng, R. (2020). Fourier Features Let Networks Learn High Frequency Functions in Low Dimensional Domains. Advances in Neural Information Processing Systems (NeurIPS). <a class="reference external" href="https://arxiv.org/abs/2006.10739">https://arxiv.org/abs/2006.10739</a></p></li>
+</ul>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./content"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="Lecture_3.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Introduction to neural networks</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="Lecture_5.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Methods for Improving PINNs’ Accuracy</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#toy-problem">Toy Problem</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-setup-parameters-and-domain">Problem Setup: Parameters and Domain</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#solution-of-partial-differential-equations">Solution of Partial Differential Equations</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-driven-discovery-of-partial-differential-equations">Data-Driven Discovery of Partial Differential Equations</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#solving-parametric-problems-with-pinns">Solving parametric problems with PINNs</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nondimensionalization">Nondimensionalization</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fourier-features-encoding">Fourier Features Encoding</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#how-fourier-features-work">How Fourier Features Work</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By The Jupyter Book community
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
