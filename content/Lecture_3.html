@@ -63,7 +63,7 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Introduction to Physics Informed Neural Networks (PINNs)" href="Lecture_4.html" />
-    <link rel="prev" title="Day 2: Fundamentals of Machine Learning" href="Lecture_2.html" />
+    <link rel="prev" title="Fundamentals of Machine Learning" href="Lecture_2.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -144,7 +144,7 @@
     
   
 
-<a class="navbar-brand logo" href="Lecture_1.html">
+<a class="navbar-brand logo" href="Lecture_2.html">
   
   
   
@@ -170,19 +170,12 @@
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
             <li class="toctree-l1">
-                <a class="reference internal" href="Lecture_1.html">
-                    <no title>
+                <a class="reference internal" href="Lecture_2.html">
+                    Fundamentals of Machine Learning
                 </a>
             </li>
         </ul>
         <ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="Lecture_2.html">Day 2: Fundamentals of Machine Learning</a></li>
-
-
-
-
-
-
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Introduction to neural networks</a></li>
 
 
@@ -445,7 +438,7 @@ Epoch 7, Accuracy: 0.50
 Epoch 8, Accuracy: 0.50
 Epoch 9, Accuracy: 0.50
 Epoch 10, Accuracy: 0.50
-Predictions: [1 0 1 1]
+Predictions: [0 0 1 0]
 </pre></div>
 </div>
 </div>
@@ -1070,75 +1063,6 @@ Use early stopping to stop training when validation loss stops improving.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>A module that was compiled using NumPy 1.x cannot be run in
-NumPy 2.2.6 as it may crash. To support both 1.x and 2.x
-versions of NumPy, modules must be compiled with NumPy 2.0.
-Some module may need to rebuild instead e.g. with &#39;pybind11&gt;=2.12&#39;.
-
-If you are a user of the module, the easiest solution will be to
-downgrade to &#39;numpy&lt;2&#39; or try to upgrade the affected module.
-We expect that some modules will need time to support NumPy 2.
-
-Traceback (most recent call last):  File &quot;/Library/Frameworks/Python.framework/Versions/3.10/lib/python3.10/runpy.py&quot;, line 196, in _run_module_as_main
-    return _run_code(code, main_globals, None,
-  File &quot;/Library/Frameworks/Python.framework/Versions/3.10/lib/python3.10/runpy.py&quot;, line 86, in _run_code
-    exec(code, run_globals)
-  File &quot;/Users/ulye_kak_raz/Desktop/pinn-course/.venv/lib/python3.10/site-packages/ipykernel_launcher.py&quot;, line 18, in &lt;module&gt;
-    app.launch_new_instance()
-  File &quot;/Users/ulye_kak_raz/Desktop/pinn-course/.venv/lib/python3.10/site-packages/traitlets/config/application.py&quot;, line 1075, in launch_instance
-    app.start()
-  File &quot;/Users/ulye_kak_raz/Desktop/pinn-course/.venv/lib/python3.10/site-packages/ipykernel/kernelapp.py&quot;, line 739, in start
-    self.io_loop.start()
-  File &quot;/Users/ulye_kak_raz/Desktop/pinn-course/.venv/lib/python3.10/site-packages/tornado/platform/asyncio.py&quot;, line 211, in start
-    self.asyncio_loop.run_forever()
-  File &quot;/Library/Frameworks/Python.framework/Versions/3.10/lib/python3.10/asyncio/base_events.py&quot;, line 600, in run_forever
-    self._run_once()
-  File &quot;/Library/Frameworks/Python.framework/Versions/3.10/lib/python3.10/asyncio/base_events.py&quot;, line 1896, in _run_once
-    handle._run()
-  File &quot;/Library/Frameworks/Python.framework/Versions/3.10/lib/python3.10/asyncio/events.py&quot;, line 80, in _run
-    self._context.run(self._callback, *self._args)
-  File &quot;/Users/ulye_kak_raz/Desktop/pinn-course/.venv/lib/python3.10/site-packages/ipykernel/kernelbase.py&quot;, line 519, in dispatch_queue
-    await self.process_one()
-  File &quot;/Users/ulye_kak_raz/Desktop/pinn-course/.venv/lib/python3.10/site-packages/ipykernel/kernelbase.py&quot;, line 508, in process_one
-    await dispatch(*args)
-  File &quot;/Users/ulye_kak_raz/Desktop/pinn-course/.venv/lib/python3.10/site-packages/ipykernel/kernelbase.py&quot;, line 400, in dispatch_shell
-    await result
-  File &quot;/Users/ulye_kak_raz/Desktop/pinn-course/.venv/lib/python3.10/site-packages/ipykernel/ipkernel.py&quot;, line 368, in execute_request
-    await super().execute_request(stream, ident, parent)
-  File &quot;/Users/ulye_kak_raz/Desktop/pinn-course/.venv/lib/python3.10/site-packages/ipykernel/kernelbase.py&quot;, line 767, in execute_request
-    reply_content = await reply_content
-  File &quot;/Users/ulye_kak_raz/Desktop/pinn-course/.venv/lib/python3.10/site-packages/ipykernel/ipkernel.py&quot;, line 455, in do_execute
-    res = shell.run_cell(
-  File &quot;/Users/ulye_kak_raz/Desktop/pinn-course/.venv/lib/python3.10/site-packages/ipykernel/zmqshell.py&quot;, line 577, in run_cell
-    return super().run_cell(*args, **kwargs)
-  File &quot;/Users/ulye_kak_raz/Desktop/pinn-course/.venv/lib/python3.10/site-packages/IPython/core/interactiveshell.py&quot;, line 3077, in run_cell
-    result = self._run_cell(
-  File &quot;/Users/ulye_kak_raz/Desktop/pinn-course/.venv/lib/python3.10/site-packages/IPython/core/interactiveshell.py&quot;, line 3132, in _run_cell
-    result = runner(coro)
-  File &quot;/Users/ulye_kak_raz/Desktop/pinn-course/.venv/lib/python3.10/site-packages/IPython/core/async_helpers.py&quot;, line 128, in _pseudo_sync_runner
-    coro.send(None)
-  File &quot;/Users/ulye_kak_raz/Desktop/pinn-course/.venv/lib/python3.10/site-packages/IPython/core/interactiveshell.py&quot;, line 3336, in run_cell_async
-    has_raised = await self.run_ast_nodes(code_ast.body, cell_name,
-  File &quot;/Users/ulye_kak_raz/Desktop/pinn-course/.venv/lib/python3.10/site-packages/IPython/core/interactiveshell.py&quot;, line 3519, in run_ast_nodes
-    if await self.run_code(code, result, async_=asy):
-  File &quot;/Users/ulye_kak_raz/Desktop/pinn-course/.venv/lib/python3.10/site-packages/IPython/core/interactiveshell.py&quot;, line 3579, in run_code
-    exec(code_obj, self.user_global_ns, self.user_ns)
-  File &quot;/var/folders/qh/w33tqq7j74181hmc1ky5lm080000gn/T/ipykernel_51383/376737619.py&quot;, line 4, in &lt;module&gt;
-    import torch
-  File &quot;/Users/ulye_kak_raz/Desktop/pinn-course/.venv/lib/python3.10/site-packages/torch/__init__.py&quot;, line 1477, in &lt;module&gt;
-    from .functional import *  # noqa: F403
-  File &quot;/Users/ulye_kak_raz/Desktop/pinn-course/.venv/lib/python3.10/site-packages/torch/functional.py&quot;, line 9, in &lt;module&gt;
-    import torch.nn.functional as F
-  File &quot;/Users/ulye_kak_raz/Desktop/pinn-course/.venv/lib/python3.10/site-packages/torch/nn/__init__.py&quot;, line 1, in &lt;module&gt;
-    from .modules import *  # noqa: F403
-  File &quot;/Users/ulye_kak_raz/Desktop/pinn-course/.venv/lib/python3.10/site-packages/torch/nn/modules/__init__.py&quot;, line 35, in &lt;module&gt;
-    from .transformer import TransformerEncoder, TransformerDecoder, \
-  File &quot;/Users/ulye_kak_raz/Desktop/pinn-course/.venv/lib/python3.10/site-packages/torch/nn/modules/transformer.py&quot;, line 20, in &lt;module&gt;
-    device: torch.device = torch.device(torch._C._get_default_device()),  # torch.device(&#39;cpu&#39;),
-/Users/ulye_kak_raz/Desktop/pinn-course/.venv/lib/python3.10/site-packages/torch/nn/modules/transformer.py:20: UserWarning: Failed to initialize NumPy: _ARRAY_API not found (Triggered internally at /Users/runner/work/pytorch/pytorch/pytorch/torch/csrc/utils/tensor_numpy.cpp:84.)
-  device: torch.device = torch.device(torch._C._get_default_device()),  # torch.device(&#39;cpu&#39;),
-</pre></div>
-</div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Gradients (numpy):
 dL/dW1: [[ 0.93194246  0.09623944 -0.24700574 -4.22315891  0.96889322 -1.1249081
    0.00741088  5.82434013 -5.24203024 -3.97948723]]
@@ -1155,18 +1079,22 @@ dL/dW2: [[ 3.56240163]
  [-1.31165714]
  [ 0.39759271]]
 dL/db2: [[-10.05776964]]
-</pre></div>
-</div>
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">RuntimeError</span><span class="g g-Whitespace">                              </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">13</span><span class="p">],</span> <span class="n">line</span> <span class="mi">53</span>
-<span class="g g-Whitespace">     </span><span class="mi">50</span> <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;dL/db2: </span><span class="si">{</span><span class="n">dL_db2</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">52</span> <span class="c1"># pytorch implementation</span>
-<span class="ne">---&gt; </span><span class="mi">53</span> <span class="n">X_torch</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">from_numpy</span><span class="p">(</span><span class="n">X</span><span class="p">)</span><span class="o">.</span><span class="n">float</span><span class="p">()</span>
-<span class="g g-Whitespace">     </span><span class="mi">54</span> <span class="n">y_torch</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">from_numpy</span><span class="p">(</span><span class="n">y</span><span class="p">)</span><span class="o">.</span><span class="n">float</span><span class="p">()</span>
-<span class="g g-Whitespace">     </span><span class="mi">56</span> <span class="n">W1_torch</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">from_numpy</span><span class="p">(</span><span class="n">W1</span><span class="p">)</span><span class="o">.</span><span class="n">float</span><span class="p">()</span>
-
-<span class="ne">RuntimeError</span>: Numpy is not available
+Gradients (autograd):
+dL/dW1: tensor([[ 0.9319,  0.0962, -0.2470, -4.2232,  0.9689, -1.1249,  0.0074,  5.8243,
+         -5.2420, -3.9795]])
+dL/db1: tensor([[ 2.7547,  0.1877, -0.4754, -9.1854,  1.8269, -2.1877,  0.0294, 10.9929,
+         -9.9733, -7.4695]])
+dL/dW2: tensor([[ 3.5624],
+        [ 1.9833],
+        [ 1.6820],
+        [ 2.9718],
+        [ 0.8473],
+        [-1.9222],
+        [-3.7164],
+        [-0.9139],
+        [-1.3117],
+        [ 0.3976]])
+dL/db2: tensor([[-10.0578]])
 </pre></div>
 </div>
 </div>
@@ -1211,7 +1139,7 @@ dL/db2: [[-10.05776964]]
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/1f80b93779767488fbdc4d9d37db023d512f2e69f853799384920857b5256698.png" src="../_images/1f80b93779767488fbdc4d9d37db023d512f2e69f853799384920857b5256698.png" />
+<img alt="../_images/41bafe5b01e4a548bd9f4c8d4acb72b0aab11b9c4349d476cdab8bcf53f188f8.png" src="../_images/41bafe5b01e4a548bd9f4c8d4acb72b0aab11b9c4349d476cdab8bcf53f188f8.png" />
 </div>
 </div>
 <p>In PyTorch, nn.Module is the base class for all neural networks. When defining a neural network, we inherit from nn.Module to get useful functionalities like parameter management, easy forward passes, loss criteria, backpropagation, model saving/loading and etc.</p>
@@ -1246,24 +1174,24 @@ dL/db2: [[-10.05776964]]
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>hidden_layer1.weight tensor([[ 0.7958],
-        [ 0.9823],
-        [ 0.1844],
-        [ 0.7747],
-        [-0.6640]]) 
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>hidden_layer1.weight tensor([[ 0.4189],
+        [-0.2496],
+        [ 0.8610],
+        [ 0.1828],
+        [ 0.7466]]) 
 
-hidden_layer1.bias tensor([ 0.6227,  0.8678,  0.7110, -0.5078,  0.9664]) 
+hidden_layer1.bias tensor([ 0.7712, -0.0932, -0.9686, -0.9742, -0.6334]) 
 
-hidden_layer2.weight tensor([[ 0.3216,  0.0712,  0.1253, -0.0691,  0.0419],
-        [-0.0206, -0.4407,  0.0131, -0.4000, -0.2854],
-        [ 0.1218, -0.2753, -0.1550,  0.1269, -0.3207],
-        [ 0.3595,  0.2628,  0.3884, -0.2254,  0.1629]]) 
+hidden_layer2.weight tensor([[ 0.0210,  0.1847,  0.2940,  0.2916,  0.0934],
+        [ 0.1905,  0.2444, -0.1815,  0.2092, -0.3917],
+        [-0.4392,  0.0428,  0.1812,  0.4158, -0.0226],
+        [-0.0147,  0.3970, -0.2297, -0.1484, -0.2957]]) 
 
-hidden_layer2.bias tensor([ 0.2494, -0.0373,  0.1157,  0.1575]) 
+hidden_layer2.bias tensor([ 0.0473, -0.3220,  0.2494,  0.3953]) 
 
-output.weight tensor([[ 0.3489,  0.0166,  0.2043, -0.1534]]) 
+output.weight tensor([[-0.3712, -0.0137, -0.0482, -0.4674]]) 
 
-output.bias tensor([0.0567]) 
+output.bias tensor([0.1790]) 
 </pre></div>
 </div>
 </div>
@@ -1307,7 +1235,7 @@ output.bias tensor([0.0567])
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/2c1b2f12ec97edb8eb4d70a8aa020817dd4e4b1ffdf44fc57b9a36b89dec40f0.png" src="../_images/2c1b2f12ec97edb8eb4d70a8aa020817dd4e4b1ffdf44fc57b9a36b89dec40f0.png" />
+<img alt="../_images/46b6de89c38c5d25f9af9855ed1e11e14ca5b8c2c3d08e8c24bbeb314c4e91d3.png" src="../_images/46b6de89c38c5d25f9af9855ed1e11e14ca5b8c2c3d08e8c24bbeb314c4e91d3.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -1329,7 +1257,7 @@ output.bias tensor([0.0567])
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/f52c4c324977c1973915e863cdaa184ec761e3536a35720cb1c2437794977573.png" src="../_images/f52c4c324977c1973915e863cdaa184ec761e3536a35720cb1c2437794977573.png" />
+<img alt="../_images/7706297124e9fa3bba7f7d5ef172c9c3abce8b2fc9b557dd54ae116c1070fbf2.png" src="../_images/7706297124e9fa3bba7f7d5ef172c9c3abce8b2fc9b557dd54ae116c1070fbf2.png" />
 </div>
 </div>
 <p>References:</p>
@@ -1379,7 +1307,7 @@ output.bias tensor([0.0567])
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Day 2: Fundamentals of Machine Learning</p>
+        <p class="prev-next-title">Fundamentals of Machine Learning</p>
       </div>
     </a>
     <a class="right-next"

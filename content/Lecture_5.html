@@ -143,7 +143,7 @@
     
   
 
-<a class="navbar-brand logo" href="Lecture_1.html">
+<a class="navbar-brand logo" href="Lecture_2.html">
   
   
   
@@ -169,19 +169,12 @@
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
             <li class="toctree-l1">
-                <a class="reference internal" href="Lecture_1.html">
-                    <no title>
+                <a class="reference internal" href="Lecture_2.html">
+                    Fundamentals of Machine Learning
                 </a>
             </li>
         </ul>
         <ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="Lecture_2.html">Day 2: Fundamentals of Machine Learning</a></li>
-
-
-
-
-
-
 <li class="toctree-l1"><a class="reference internal" href="Lecture_3.html">Introduction to neural networks</a></li>
 
 
@@ -425,77 +418,6 @@ u(x, t) = sin(\frac{2\pi(x-\nu t)}{L})
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>A module that was compiled using NumPy 1.x cannot be run in
-NumPy 2.2.6 as it may crash. To support both 1.x and 2.x
-versions of NumPy, modules must be compiled with NumPy 2.0.
-Some module may need to rebuild instead e.g. with &#39;pybind11&gt;=2.12&#39;.
-
-If you are a user of the module, the easiest solution will be to
-downgrade to &#39;numpy&lt;2&#39; or try to upgrade the affected module.
-We expect that some modules will need time to support NumPy 2.
-
-Traceback (most recent call last):  File &quot;/Library/Frameworks/Python.framework/Versions/3.10/lib/python3.10/runpy.py&quot;, line 196, in _run_module_as_main
-    return _run_code(code, main_globals, None,
-  File &quot;/Library/Frameworks/Python.framework/Versions/3.10/lib/python3.10/runpy.py&quot;, line 86, in _run_code
-    exec(code, run_globals)
-  File &quot;/Users/ulye_kak_raz/Desktop/pinn-course/.venv/lib/python3.10/site-packages/ipykernel_launcher.py&quot;, line 18, in &lt;module&gt;
-    app.launch_new_instance()
-  File &quot;/Users/ulye_kak_raz/Desktop/pinn-course/.venv/lib/python3.10/site-packages/traitlets/config/application.py&quot;, line 1075, in launch_instance
-    app.start()
-  File &quot;/Users/ulye_kak_raz/Desktop/pinn-course/.venv/lib/python3.10/site-packages/ipykernel/kernelapp.py&quot;, line 739, in start
-    self.io_loop.start()
-  File &quot;/Users/ulye_kak_raz/Desktop/pinn-course/.venv/lib/python3.10/site-packages/tornado/platform/asyncio.py&quot;, line 211, in start
-    self.asyncio_loop.run_forever()
-  File &quot;/Library/Frameworks/Python.framework/Versions/3.10/lib/python3.10/asyncio/base_events.py&quot;, line 600, in run_forever
-    self._run_once()
-  File &quot;/Library/Frameworks/Python.framework/Versions/3.10/lib/python3.10/asyncio/base_events.py&quot;, line 1896, in _run_once
-    handle._run()
-  File &quot;/Library/Frameworks/Python.framework/Versions/3.10/lib/python3.10/asyncio/events.py&quot;, line 80, in _run
-    self._context.run(self._callback, *self._args)
-  File &quot;/Users/ulye_kak_raz/Desktop/pinn-course/.venv/lib/python3.10/site-packages/ipykernel/kernelbase.py&quot;, line 519, in dispatch_queue
-    await self.process_one()
-  File &quot;/Users/ulye_kak_raz/Desktop/pinn-course/.venv/lib/python3.10/site-packages/ipykernel/kernelbase.py&quot;, line 508, in process_one
-    await dispatch(*args)
-  File &quot;/Users/ulye_kak_raz/Desktop/pinn-course/.venv/lib/python3.10/site-packages/ipykernel/kernelbase.py&quot;, line 400, in dispatch_shell
-    await result
-  File &quot;/Users/ulye_kak_raz/Desktop/pinn-course/.venv/lib/python3.10/site-packages/ipykernel/ipkernel.py&quot;, line 368, in execute_request
-    await super().execute_request(stream, ident, parent)
-  File &quot;/Users/ulye_kak_raz/Desktop/pinn-course/.venv/lib/python3.10/site-packages/ipykernel/kernelbase.py&quot;, line 767, in execute_request
-    reply_content = await reply_content
-  File &quot;/Users/ulye_kak_raz/Desktop/pinn-course/.venv/lib/python3.10/site-packages/ipykernel/ipkernel.py&quot;, line 455, in do_execute
-    res = shell.run_cell(
-  File &quot;/Users/ulye_kak_raz/Desktop/pinn-course/.venv/lib/python3.10/site-packages/ipykernel/zmqshell.py&quot;, line 577, in run_cell
-    return super().run_cell(*args, **kwargs)
-  File &quot;/Users/ulye_kak_raz/Desktop/pinn-course/.venv/lib/python3.10/site-packages/IPython/core/interactiveshell.py&quot;, line 3077, in run_cell
-    result = self._run_cell(
-  File &quot;/Users/ulye_kak_raz/Desktop/pinn-course/.venv/lib/python3.10/site-packages/IPython/core/interactiveshell.py&quot;, line 3132, in _run_cell
-    result = runner(coro)
-  File &quot;/Users/ulye_kak_raz/Desktop/pinn-course/.venv/lib/python3.10/site-packages/IPython/core/async_helpers.py&quot;, line 128, in _pseudo_sync_runner
-    coro.send(None)
-  File &quot;/Users/ulye_kak_raz/Desktop/pinn-course/.venv/lib/python3.10/site-packages/IPython/core/interactiveshell.py&quot;, line 3336, in run_cell_async
-    has_raised = await self.run_ast_nodes(code_ast.body, cell_name,
-  File &quot;/Users/ulye_kak_raz/Desktop/pinn-course/.venv/lib/python3.10/site-packages/IPython/core/interactiveshell.py&quot;, line 3519, in run_ast_nodes
-    if await self.run_code(code, result, async_=asy):
-  File &quot;/Users/ulye_kak_raz/Desktop/pinn-course/.venv/lib/python3.10/site-packages/IPython/core/interactiveshell.py&quot;, line 3579, in run_code
-    exec(code_obj, self.user_global_ns, self.user_ns)
-  File &quot;/var/folders/qh/w33tqq7j74181hmc1ky5lm080000gn/T/ipykernel_51398/2955194164.py&quot;, line 4, in &lt;module&gt;
-    import torch
-  File &quot;/Users/ulye_kak_raz/Desktop/pinn-course/.venv/lib/python3.10/site-packages/torch/__init__.py&quot;, line 1477, in &lt;module&gt;
-    from .functional import *  # noqa: F403
-  File &quot;/Users/ulye_kak_raz/Desktop/pinn-course/.venv/lib/python3.10/site-packages/torch/functional.py&quot;, line 9, in &lt;module&gt;
-    import torch.nn.functional as F
-  File &quot;/Users/ulye_kak_raz/Desktop/pinn-course/.venv/lib/python3.10/site-packages/torch/nn/__init__.py&quot;, line 1, in &lt;module&gt;
-    from .modules import *  # noqa: F403
-  File &quot;/Users/ulye_kak_raz/Desktop/pinn-course/.venv/lib/python3.10/site-packages/torch/nn/modules/__init__.py&quot;, line 35, in &lt;module&gt;
-    from .transformer import TransformerEncoder, TransformerDecoder, \
-  File &quot;/Users/ulye_kak_raz/Desktop/pinn-course/.venv/lib/python3.10/site-packages/torch/nn/modules/transformer.py&quot;, line 20, in &lt;module&gt;
-    device: torch.device = torch.device(torch._C._get_default_device()),  # torch.device(&#39;cpu&#39;),
-/Users/ulye_kak_raz/Desktop/pinn-course/.venv/lib/python3.10/site-packages/torch/nn/modules/transformer.py:20: UserWarning: Failed to initialize NumPy: _ARRAY_API not found (Triggered internally at /Users/runner/work/pytorch/pytorch/pytorch/torch/csrc/utils/tensor_numpy.cpp:84.)
-  device: torch.device = torch.device(torch._C._get_default_device()),  # torch.device(&#39;cpu&#39;),
-</pre></div>
-</div>
-</div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -688,21 +610,10 @@ Traceback (most recent call last):  File &quot;/Library/Frameworks/Python.framew
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">RuntimeError</span><span class="g g-Whitespace">                              </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">line</span> <span class="mi">25</span>
-<span class="g g-Whitespace">     </span><span class="mi">22</span> <span class="n">ic_pts</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">((</span><span class="n">x_lin</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">x_lin</span><span class="p">)),</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="c1"># num_x points</span>
-<span class="g g-Whitespace">     </span><span class="mi">24</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
-<span class="ne">---&gt; </span><span class="mi">25</span> <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">dom_points</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">cpu</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">(),</span> <span class="n">dom_points</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">cpu</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">(),</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Sampled Domain Points&#39;</span><span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">26</span> <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">bc_l_pts</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">cpu</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">(),</span> <span class="n">bc_l_pts</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">cpu</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">(),</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;green&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Boundary Points (x=0)&#39;</span><span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">27</span> <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">bc_r_pts</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">cpu</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">(),</span> <span class="n">bc_r_pts</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">cpu</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">(),</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;orange&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Boundary Points (x=L)&#39;</span><span class="p">)</span>
-
-<span class="ne">RuntimeError</span>: Numpy is not available
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x121feb9a0&gt;
 </pre></div>
 </div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Figure size 800x400 with 0 Axes&gt;
-</pre></div>
-</div>
+<img alt="../_images/a856c3b1baea4d05bbf285d6a158c0208a450d05c40eedb5ac6de049ae83a9f5.png" src="../_images/a856c3b1baea4d05bbf285d6a158c0208a450d05c40eedb5ac6de049ae83a9f5.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -722,12 +633,121 @@ Traceback (most recent call last):  File &quot;/Library/Frameworks/Python.framew
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[Adam]: Iteration 0, Total loss: 4.940e-01, PDE Loss: 2.441e-04, IC Loss: 4.906e-01, BC Loss: 3.205e-03, V: 1.000
-[Adam]: Iteration 10000, Total loss: 2.865e-06, PDE Loss: 1.391e-06, IC Loss: 1.376e-06, BC Loss: 9.798e-08, V: 1.000
-[Adam]: Iteration 20000, Total loss: 2.870e-06, PDE Loss: 7.435e-07, IC Loss: 1.826e-06, BC Loss: 3.004e-07, V: 1.000
-[Adam]: Iteration 30000, Total loss: 2.787e-06, PDE Loss: 4.420e-07, IC Loss: 1.817e-06, BC Loss: 5.284e-07, V: 1.000
 </pre></div>
 </div>
-<img alt="../_images/8af848236179b6681e47dff3f7ca1c026d1e6a780fc518fb1d928d93e4ab5cee.png" src="../_images/8af848236179b6681e47dff3f7ca1c026d1e6a780fc518fb1d928d93e4ab5cee.png" />
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">KeyboardInterrupt</span><span class="g g-Whitespace">                         </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">4</span><span class="p">],</span> <span class="n">line</span> <span class="mi">9</span>
+<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="n">model</span> <span class="o">=</span> <span class="n">pinn_advection</span><span class="p">(</span><span class="n">net_u</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">device</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">7</span> <span class="n">V_train</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="ne">----&gt; </span><span class="mi">9</span> <span class="n">model</span><span class="o">.</span><span class="n">train_net</span><span class="p">(</span><span class="n">domain_points</span><span class="o">=</span><span class="n">dom_points</span><span class="p">,</span> <span class="n">ic_points</span><span class="o">=</span><span class="n">ic_pts</span><span class="p">,</span> <span class="n">bc_left_points</span><span class="o">=</span><span class="n">bc_l_pts</span><span class="p">,</span> <span class="n">bc_right_points</span><span class="o">=</span><span class="n">bc_r_pts</span><span class="p">,</span> <span class="n">epochs</span><span class="o">=</span><span class="mi">40000</span><span class="p">,</span> <span class="n">optimizer</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">optim</span><span class="o">.</span><span class="n">Adam</span><span class="p">,</span> <span class="n">log_interval</span><span class="o">=</span><span class="mi">10000</span><span class="p">,</span> <span class="n">V</span><span class="o">=</span><span class="n">V_train</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">10</span> <span class="n">model</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">num_x</span><span class="o">=</span><span class="mi">256</span><span class="p">,</span> <span class="n">num_t</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">V</span><span class="o">=</span><span class="n">V_train</span><span class="p">)</span>
+
+<span class="nn">Cell In[2], line 86,</span> in <span class="ni">pinn_advection.train_net</span><span class="nt">(self, domain_points, ic_points, bc_left_points, bc_right_points, epochs, optimizer, log_interval, V)</span>
+<span class="g g-Whitespace">     </span><span class="mi">84</span> <span class="k">for</span> <span class="n">epoch</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">epochs</span><span class="p">):</span>
+<span class="g g-Whitespace">     </span><span class="mi">85</span>     <span class="bp">self</span><span class="o">.</span><span class="n">pinn_loss</span><span class="p">()</span>
+<span class="ne">---&gt; </span><span class="mi">86</span>     <span class="bp">self</span><span class="o">.</span><span class="n">optimizer</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
+
+<span class="nn">File ~/Desktop/pinn-course/.venv/lib/python3.10/site-packages/torch/optim/optimizer.py:385,</span> in <span class="ni">Optimizer.profile_hook_step.&lt;locals&gt;.wrapper</span><span class="nt">(*args, **kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">380</span>         <span class="k">else</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">381</span>             <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">382</span>                 <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">func</span><span class="si">}</span><span class="s2"> must return None or a tuple of (new_args, new_kwargs), but got </span><span class="si">{</span><span class="n">result</span><span class="si">}</span><span class="s2">.&quot;</span>
+<span class="g g-Whitespace">    </span><span class="mi">383</span>             <span class="p">)</span>
+<span class="ne">--&gt; </span><span class="mi">385</span> <span class="n">out</span> <span class="o">=</span> <span class="n">func</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">386</span> <span class="bp">self</span><span class="o">.</span><span class="n">_optimizer_step_code</span><span class="p">()</span>
+<span class="g g-Whitespace">    </span><span class="mi">388</span> <span class="c1"># call optimizer step post hooks</span>
+
+<span class="nn">File ~/Desktop/pinn-course/.venv/lib/python3.10/site-packages/torch/optim/optimizer.py:76,</span> in <span class="ni">_use_grad_for_differentiable.&lt;locals&gt;._use_grad</span><span class="nt">(self, *args, **kwargs)</span>
+<span class="g g-Whitespace">     </span><span class="mi">74</span>     <span class="n">torch</span><span class="o">.</span><span class="n">set_grad_enabled</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">defaults</span><span class="p">[</span><span class="s1">&#39;differentiable&#39;</span><span class="p">])</span>
+<span class="g g-Whitespace">     </span><span class="mi">75</span>     <span class="n">torch</span><span class="o">.</span><span class="n">_dynamo</span><span class="o">.</span><span class="n">graph_break</span><span class="p">()</span>
+<span class="ne">---&gt; </span><span class="mi">76</span>     <span class="n">ret</span> <span class="o">=</span> <span class="n">func</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">77</span> <span class="k">finally</span><span class="p">:</span>
+<span class="g g-Whitespace">     </span><span class="mi">78</span>     <span class="n">torch</span><span class="o">.</span><span class="n">_dynamo</span><span class="o">.</span><span class="n">graph_break</span><span class="p">()</span>
+
+<span class="nn">File ~/Desktop/pinn-course/.venv/lib/python3.10/site-packages/torch/optim/adam.py:166,</span> in <span class="ni">Adam.step</span><span class="nt">(self, closure)</span>
+<span class="g g-Whitespace">    </span><span class="mi">155</span>     <span class="n">beta1</span><span class="p">,</span> <span class="n">beta2</span> <span class="o">=</span> <span class="n">group</span><span class="p">[</span><span class="s1">&#39;betas&#39;</span><span class="p">]</span>
+<span class="g g-Whitespace">    </span><span class="mi">157</span>     <span class="n">has_complex</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_init_group</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">158</span>         <span class="n">group</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">159</span>         <span class="n">params_with_grad</span><span class="p">,</span>
+   <span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">163</span>         <span class="n">max_exp_avg_sqs</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">164</span>         <span class="n">state_steps</span><span class="p">)</span>
+<span class="ne">--&gt; </span><span class="mi">166</span>     <span class="n">adam</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">167</span>         <span class="n">params_with_grad</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">168</span>         <span class="n">grads</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">169</span>         <span class="n">exp_avgs</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">170</span>         <span class="n">exp_avg_sqs</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">171</span>         <span class="n">max_exp_avg_sqs</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">172</span>         <span class="n">state_steps</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">173</span>         <span class="n">amsgrad</span><span class="o">=</span><span class="n">group</span><span class="p">[</span><span class="s1">&#39;amsgrad&#39;</span><span class="p">],</span>
+<span class="g g-Whitespace">    </span><span class="mi">174</span>         <span class="n">has_complex</span><span class="o">=</span><span class="n">has_complex</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">175</span>         <span class="n">beta1</span><span class="o">=</span><span class="n">beta1</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">176</span>         <span class="n">beta2</span><span class="o">=</span><span class="n">beta2</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">177</span>         <span class="n">lr</span><span class="o">=</span><span class="n">group</span><span class="p">[</span><span class="s1">&#39;lr&#39;</span><span class="p">],</span>
+<span class="g g-Whitespace">    </span><span class="mi">178</span>         <span class="n">weight_decay</span><span class="o">=</span><span class="n">group</span><span class="p">[</span><span class="s1">&#39;weight_decay&#39;</span><span class="p">],</span>
+<span class="g g-Whitespace">    </span><span class="mi">179</span>         <span class="n">eps</span><span class="o">=</span><span class="n">group</span><span class="p">[</span><span class="s1">&#39;eps&#39;</span><span class="p">],</span>
+<span class="g g-Whitespace">    </span><span class="mi">180</span>         <span class="n">maximize</span><span class="o">=</span><span class="n">group</span><span class="p">[</span><span class="s1">&#39;maximize&#39;</span><span class="p">],</span>
+<span class="g g-Whitespace">    </span><span class="mi">181</span>         <span class="n">foreach</span><span class="o">=</span><span class="n">group</span><span class="p">[</span><span class="s1">&#39;foreach&#39;</span><span class="p">],</span>
+<span class="g g-Whitespace">    </span><span class="mi">182</span>         <span class="n">capturable</span><span class="o">=</span><span class="n">group</span><span class="p">[</span><span class="s1">&#39;capturable&#39;</span><span class="p">],</span>
+<span class="g g-Whitespace">    </span><span class="mi">183</span>         <span class="n">differentiable</span><span class="o">=</span><span class="n">group</span><span class="p">[</span><span class="s1">&#39;differentiable&#39;</span><span class="p">],</span>
+<span class="g g-Whitespace">    </span><span class="mi">184</span>         <span class="n">fused</span><span class="o">=</span><span class="n">group</span><span class="p">[</span><span class="s1">&#39;fused&#39;</span><span class="p">],</span>
+<span class="g g-Whitespace">    </span><span class="mi">185</span>         <span class="n">grad_scale</span><span class="o">=</span><span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;grad_scale&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>
+<span class="g g-Whitespace">    </span><span class="mi">186</span>         <span class="n">found_inf</span><span class="o">=</span><span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;found_inf&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>
+<span class="g g-Whitespace">    </span><span class="mi">187</span>     <span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">189</span> <span class="k">return</span> <span class="n">loss</span>
+
+<span class="nn">File ~/Desktop/pinn-course/.venv/lib/python3.10/site-packages/torch/optim/adam.py:316,</span> in <span class="ni">adam</span><span class="nt">(params, grads, exp_avgs, exp_avg_sqs, max_exp_avg_sqs, state_steps, foreach, capturable, differentiable, fused, grad_scale, found_inf, has_complex, amsgrad, beta1, beta2, lr, weight_decay, eps, maximize)</span>
+<span class="g g-Whitespace">    </span><span class="mi">313</span> <span class="k">else</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">314</span>     <span class="n">func</span> <span class="o">=</span> <span class="n">_single_tensor_adam</span>
+<span class="ne">--&gt; </span><span class="mi">316</span> <span class="n">func</span><span class="p">(</span><span class="n">params</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">317</span>      <span class="n">grads</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">318</span>      <span class="n">exp_avgs</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">319</span>      <span class="n">exp_avg_sqs</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">320</span>      <span class="n">max_exp_avg_sqs</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">321</span>      <span class="n">state_steps</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">322</span>      <span class="n">amsgrad</span><span class="o">=</span><span class="n">amsgrad</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">323</span>      <span class="n">has_complex</span><span class="o">=</span><span class="n">has_complex</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">324</span>      <span class="n">beta1</span><span class="o">=</span><span class="n">beta1</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">325</span>      <span class="n">beta2</span><span class="o">=</span><span class="n">beta2</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">326</span>      <span class="n">lr</span><span class="o">=</span><span class="n">lr</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">327</span>      <span class="n">weight_decay</span><span class="o">=</span><span class="n">weight_decay</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">328</span>      <span class="n">eps</span><span class="o">=</span><span class="n">eps</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">329</span>      <span class="n">maximize</span><span class="o">=</span><span class="n">maximize</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">330</span>      <span class="n">capturable</span><span class="o">=</span><span class="n">capturable</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">331</span>      <span class="n">differentiable</span><span class="o">=</span><span class="n">differentiable</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">332</span>      <span class="n">grad_scale</span><span class="o">=</span><span class="n">grad_scale</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">333</span>      <span class="n">found_inf</span><span class="o">=</span><span class="n">found_inf</span><span class="p">)</span>
+
+<span class="nn">File ~/Desktop/pinn-course/.venv/lib/python3.10/site-packages/torch/optim/adam.py:358,</span> in <span class="ni">_single_tensor_adam</span><span class="nt">(params, grads, exp_avgs, exp_avg_sqs, max_exp_avg_sqs, state_steps, grad_scale, found_inf, amsgrad, has_complex, beta1, beta2, lr, weight_decay, eps, maximize, capturable, differentiable)</span>
+<span class="g g-Whitespace">    </span><span class="mi">336</span> <span class="k">def</span><span class="w"> </span><span class="nf">_single_tensor_adam</span><span class="p">(</span><span class="n">params</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Tensor</span><span class="p">],</span>
+<span class="g g-Whitespace">    </span><span class="mi">337</span>                         <span class="n">grads</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Tensor</span><span class="p">],</span>
+<span class="g g-Whitespace">    </span><span class="mi">338</span>                         <span class="n">exp_avgs</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Tensor</span><span class="p">],</span>
+   <span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">353</span>                         <span class="n">capturable</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">354</span>                         <span class="n">differentiable</span><span class="p">:</span> <span class="nb">bool</span><span class="p">):</span>
+<span class="g g-Whitespace">    </span><span class="mi">356</span>     <span class="k">assert</span> <span class="n">grad_scale</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">found_inf</span> <span class="ow">is</span> <span class="kc">None</span>
+<span class="ne">--&gt; </span><span class="mi">358</span>     <span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">jit</span><span class="o">.</span><span class="n">is_scripting</span><span class="p">():</span>
+<span class="g g-Whitespace">    </span><span class="mi">359</span>         <span class="c1"># this assert is due to JIT being dumb and not realizing that the ops below</span>
+<span class="g g-Whitespace">    </span><span class="mi">360</span>         <span class="c1"># have overloads to handle both float and Tensor lrs, so we just assert it&#39;s</span>
+<span class="g g-Whitespace">    </span><span class="mi">361</span>         <span class="c1"># a float since most people using JIT are using floats</span>
+<span class="g g-Whitespace">    </span><span class="mi">362</span>         <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">lr</span><span class="p">,</span> <span class="nb">float</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">364</span>     <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">param</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">params</span><span class="p">):</span>
+
+<span class="nn">File ~/Desktop/pinn-course/.venv/lib/python3.10/site-packages/torch/_jit_internal.py:1120,</span> in <span class="ni">is_scripting</span><span class="nt">()</span>
+<span class="g g-Whitespace">   </span><span class="mi">1116</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">7</span><span class="p">):</span>
+<span class="g g-Whitespace">   </span><span class="mi">1117</span>     <span class="nb">globals</span><span class="p">()[</span><span class="sa">f</span><span class="s2">&quot;BroadcastingList</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">BroadcastingList1</span>
+<span class="ne">-&gt; </span><span class="mi">1120</span> <span class="k">def</span><span class="w"> </span><span class="nf">is_scripting</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="g g-Whitespace">   </span><span class="mi">1121</span><span class="w">     </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="g g-Whitespace">   </span><span class="mi">1122</span><span class="sd">     Function that returns True when in compilation and False otherwise. This</span>
+<span class="g g-Whitespace">   </span><span class="mi">1123</span><span class="sd">     is useful especially with the @unused decorator to leave code in your</span>
+<span class="sd">   (...)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1137</span><span class="sd">               return unsupported_linear_op(x)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1138</span><span class="sd">     &quot;&quot;&quot;</span>
+<span class="g g-Whitespace">   </span><span class="mi">1139</span>     <span class="k">return</span> <span class="kc">False</span>
+
+<span class="ne">KeyboardInterrupt</span>: 
+</pre></div>
+</div>
 </div>
 </div>
 <p>Nice, vanilla PINN can predict learn the advection equation at <span class="math notranslate nohighlight">\(\nu = 1\)</span>, but can it also learn if the advection speed increases? Lets try it again for <span class="math notranslate nohighlight">\(\nu = 30\)</span></p>

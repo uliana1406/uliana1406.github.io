@@ -16,56 +16,25 @@ Traceback (most recent call last):
     return future.result()
   File "/Users/ulye_kak_raz/Desktop/pinn-course/.venv/lib/python3.10/site-packages/nbclient/client.py", line 709, in async_execute
     await self.async_execute_cell(
-  File "/Users/ulye_kak_raz/Desktop/pinn-course/.venv/lib/python3.10/site-packages/nbclient/client.py", line 1062, in async_execute_cell
-    await self._check_raise_for_error(cell, cell_index, exec_reply)
-  File "/Users/ulye_kak_raz/Desktop/pinn-course/.venv/lib/python3.10/site-packages/nbclient/client.py", line 918, in _check_raise_for_error
-    raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
-nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
-------------------
-num_x = 30  # Number of points in the x direction
-num_t = 30  # Number of points in the t direction
+  File "/Users/ulye_kak_raz/Desktop/pinn-course/.venv/lib/python3.10/site-packages/nbclient/client.py", line 1005, in async_execute_cell
+    exec_reply = await self.task_poll_for_reply
+  File "/Users/ulye_kak_raz/Desktop/pinn-course/.venv/lib/python3.10/site-packages/nbclient/client.py", line 806, in _async_poll_for_reply
+    error_on_timeout_execute_reply = await self._async_handle_timeout(timeout, cell)
+  File "/Users/ulye_kak_raz/Desktop/pinn-course/.venv/lib/python3.10/site-packages/nbclient/client.py", line 856, in _async_handle_timeout
+    raise CellTimeoutError.error_from_timeout_and_cell(
+nbclient.exceptions.CellTimeoutError: A cell timed out while it was being executed, after 30 seconds.
+The message was: Cell execution timed out.
+Here is a preview of the cell contents:
+-------------------
+arch = [2] + [32] * 4 + [1]  # Input layer, hidden layers, output layer
+act = nn.Tanh  # Activation function
+net_u = MLP(arch, act)
 
-x_lin = torch.linspace(0, L, num_x).reshape(-1, 1)  # x grid
-t_lin = torch.linspace(0, 1, num_t).reshape(-1, 1)  # t grid
+model = pinn_advection(net_u, device=device)
 
-x_lin_domain = x_lin[1:-1]  # Exclude the boundaries for collocation points
-t_lin_domain = t_lin[1:]    # Exclude the initial condition for collocation points
+V_train = 1
 
-# create a grid of points in the domain
-x_grid, t_grid = torch.meshgrid(x_lin_domain.squeeze(), t_lin_domain.squeeze(), indexing='ij')
-x_grid_flat = x_grid.reshape(-1, 1)
-t_grid_flat = t_grid.reshape(-1, 1)
-
-dom_points = torch.cat((x_grid_flat, t_grid_flat), dim=1)
-
-# Generate boundary condition points
-bc_l_pts = torch.cat((torch.zeros_like(t_lin), t_lin), dim=1)  # Boundary at x=0, num_t points
-bc_r_pts = torch.cat((torch.full_like(t_lin, L), t_lin), dim=1)  # Boundary at x=L
-
-# Generate initial condition points
-ic_pts = torch.cat((x_lin, torch.zeros_like(x_lin)), dim=1) # num_x points
-
-plt.figure(figsize=(8, 4))
-plt.scatter(dom_points[:, 1].cpu().numpy(), dom_points[:, 0].cpu().numpy(), color='blue', label='Sampled Domain Points')
-plt.scatter(bc_l_pts[:, 1].cpu().numpy(), bc_l_pts[:, 0].cpu().numpy(), color='green', label='Boundary Points (x=0)')
-plt.scatter(bc_r_pts[:, 1].cpu().numpy(), bc_r_pts[:, 0].cpu().numpy(), color='orange', label='Boundary Points (x=L)')
-plt.scatter(ic_pts[:, 1].cpu().numpy(), ic_pts[:, 0].cpu().numpy(), color='red', label='Initial Condition Points')
-plt.title('Sampled Domain, Boundary, and Initial Condition Points')
-plt.xlabel('t')
-plt.ylabel('x')
-plt.tight_layout()
-plt.legend()
-------------------
-
-
-[0;31m---------------------------------------------------------------------------[0m
-[0;31mRuntimeError[0m                              Traceback (most recent call last)
-Cell [0;32mIn[3], line 25[0m
-[1;32m     22[0m ic_pts [38;5;241m=[39m torch[38;5;241m.[39mcat((x_lin, torch[38;5;241m.[39mzeros_like(x_lin)), dim[38;5;241m=[39m[38;5;241m1[39m) [38;5;66;03m# num_x points[39;00m
-[1;32m     24[0m plt[38;5;241m.[39mfigure(figsize[38;5;241m=[39m([38;5;241m8[39m, [38;5;241m4[39m))
-[0;32m---> 25[0m plt[38;5;241m.[39mscatter([43mdom_points[49m[43m[[49m[43m:[49m[43m,[49m[43m [49m[38;5;241;43m1[39;49m[43m][49m[38;5;241;43m.[39;49m[43mcpu[49m[43m([49m[43m)[49m[38;5;241;43m.[39;49m[43mnumpy[49m[43m([49m[43m)[49m, dom_points[:, [38;5;241m0[39m][38;5;241m.[39mcpu()[38;5;241m.[39mnumpy(), color[38;5;241m=[39m[38;5;124m'[39m[38;5;124mblue[39m[38;5;124m'[39m, label[38;5;241m=[39m[38;5;124m'[39m[38;5;124mSampled Domain Points[39m[38;5;124m'[39m)
-[1;32m     26[0m plt[38;5;241m.[39mscatter(bc_l_pts[:, [38;5;241m1[39m][38;5;241m.[39mcpu()[38;5;241m.[39mnumpy(), bc_l_pts[:, [38;5;241m0[39m][38;5;241m.[39mcpu()[38;5;241m.[39mnumpy(), color[38;5;241m=[39m[38;5;124m'[39m[38;5;124mgreen[39m[38;5;124m'[39m, label[38;5;241m=[39m[38;5;124m'[39m[38;5;124mBoundary Points (x=0)[39m[38;5;124m'[39m)
-[1;32m     27[0m plt[38;5;241m.[39mscatter(bc_r_pts[:, [38;5;241m1[39m][38;5;241m.[39mcpu()[38;5;241m.[39mnumpy(), bc_r_pts[:, [38;5;241m0[39m][38;5;241m.[39mcpu()[38;5;241m.[39mnumpy(), color[38;5;241m=[39m[38;5;124m'[39m[38;5;124morange[39m[38;5;124m'[39m, label[38;5;241m=[39m[38;5;124m'[39m[38;5;124mBoundary Points (x=L)[39m[38;5;124m'[39m)
-
-[0;31mRuntimeError[0m: Numpy is not available
+model.train_net(domain_points=dom_points, ic_points=ic_pts, bc_left_points=bc_l_pts, bc_right_points=bc_r_pts, epochs=40000, optimizer=torch.optim.Adam, log_interval=10000, V=V_train)
+model.evaluate(num_x=256, num_t=100, V=V_train)
+-------------------
 

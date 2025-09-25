@@ -144,7 +144,7 @@
     
   
 
-<a class="navbar-brand logo" href="Lecture_1.html">
+<a class="navbar-brand logo" href="Lecture_2.html">
   
   
   
@@ -170,19 +170,12 @@
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
             <li class="toctree-l1">
-                <a class="reference internal" href="Lecture_1.html">
-                    <no title>
+                <a class="reference internal" href="Lecture_2.html">
+                    Fundamentals of Machine Learning
                 </a>
             </li>
         </ul>
         <ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="Lecture_2.html">Day 2: Fundamentals of Machine Learning</a></li>
-
-
-
-
-
-
 <li class="toctree-l1"><a class="reference internal" href="Lecture_3.html">Introduction to neural networks</a></li>
 
 
@@ -443,77 +436,6 @@ is the calculation of the residuals with an arbitrary metric \)</span>\Vert \cdo
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>A module that was compiled using NumPy 1.x cannot be run in
-NumPy 2.2.6 as it may crash. To support both 1.x and 2.x
-versions of NumPy, modules must be compiled with NumPy 2.0.
-Some module may need to rebuild instead e.g. with &#39;pybind11&gt;=2.12&#39;.
-
-If you are a user of the module, the easiest solution will be to
-downgrade to &#39;numpy&lt;2&#39; or try to upgrade the affected module.
-We expect that some modules will need time to support NumPy 2.
-
-Traceback (most recent call last):  File &quot;/Library/Frameworks/Python.framework/Versions/3.10/lib/python3.10/runpy.py&quot;, line 196, in _run_module_as_main
-    return _run_code(code, main_globals, None,
-  File &quot;/Library/Frameworks/Python.framework/Versions/3.10/lib/python3.10/runpy.py&quot;, line 86, in _run_code
-    exec(code, run_globals)
-  File &quot;/Users/ulye_kak_raz/Desktop/pinn-course/.venv/lib/python3.10/site-packages/ipykernel_launcher.py&quot;, line 18, in &lt;module&gt;
-    app.launch_new_instance()
-  File &quot;/Users/ulye_kak_raz/Desktop/pinn-course/.venv/lib/python3.10/site-packages/traitlets/config/application.py&quot;, line 1075, in launch_instance
-    app.start()
-  File &quot;/Users/ulye_kak_raz/Desktop/pinn-course/.venv/lib/python3.10/site-packages/ipykernel/kernelapp.py&quot;, line 739, in start
-    self.io_loop.start()
-  File &quot;/Users/ulye_kak_raz/Desktop/pinn-course/.venv/lib/python3.10/site-packages/tornado/platform/asyncio.py&quot;, line 211, in start
-    self.asyncio_loop.run_forever()
-  File &quot;/Library/Frameworks/Python.framework/Versions/3.10/lib/python3.10/asyncio/base_events.py&quot;, line 600, in run_forever
-    self._run_once()
-  File &quot;/Library/Frameworks/Python.framework/Versions/3.10/lib/python3.10/asyncio/base_events.py&quot;, line 1896, in _run_once
-    handle._run()
-  File &quot;/Library/Frameworks/Python.framework/Versions/3.10/lib/python3.10/asyncio/events.py&quot;, line 80, in _run
-    self._context.run(self._callback, *self._args)
-  File &quot;/Users/ulye_kak_raz/Desktop/pinn-course/.venv/lib/python3.10/site-packages/ipykernel/kernelbase.py&quot;, line 519, in dispatch_queue
-    await self.process_one()
-  File &quot;/Users/ulye_kak_raz/Desktop/pinn-course/.venv/lib/python3.10/site-packages/ipykernel/kernelbase.py&quot;, line 508, in process_one
-    await dispatch(*args)
-  File &quot;/Users/ulye_kak_raz/Desktop/pinn-course/.venv/lib/python3.10/site-packages/ipykernel/kernelbase.py&quot;, line 400, in dispatch_shell
-    await result
-  File &quot;/Users/ulye_kak_raz/Desktop/pinn-course/.venv/lib/python3.10/site-packages/ipykernel/ipkernel.py&quot;, line 368, in execute_request
-    await super().execute_request(stream, ident, parent)
-  File &quot;/Users/ulye_kak_raz/Desktop/pinn-course/.venv/lib/python3.10/site-packages/ipykernel/kernelbase.py&quot;, line 767, in execute_request
-    reply_content = await reply_content
-  File &quot;/Users/ulye_kak_raz/Desktop/pinn-course/.venv/lib/python3.10/site-packages/ipykernel/ipkernel.py&quot;, line 455, in do_execute
-    res = shell.run_cell(
-  File &quot;/Users/ulye_kak_raz/Desktop/pinn-course/.venv/lib/python3.10/site-packages/ipykernel/zmqshell.py&quot;, line 577, in run_cell
-    return super().run_cell(*args, **kwargs)
-  File &quot;/Users/ulye_kak_raz/Desktop/pinn-course/.venv/lib/python3.10/site-packages/IPython/core/interactiveshell.py&quot;, line 3077, in run_cell
-    result = self._run_cell(
-  File &quot;/Users/ulye_kak_raz/Desktop/pinn-course/.venv/lib/python3.10/site-packages/IPython/core/interactiveshell.py&quot;, line 3132, in _run_cell
-    result = runner(coro)
-  File &quot;/Users/ulye_kak_raz/Desktop/pinn-course/.venv/lib/python3.10/site-packages/IPython/core/async_helpers.py&quot;, line 128, in _pseudo_sync_runner
-    coro.send(None)
-  File &quot;/Users/ulye_kak_raz/Desktop/pinn-course/.venv/lib/python3.10/site-packages/IPython/core/interactiveshell.py&quot;, line 3336, in run_cell_async
-    has_raised = await self.run_ast_nodes(code_ast.body, cell_name,
-  File &quot;/Users/ulye_kak_raz/Desktop/pinn-course/.venv/lib/python3.10/site-packages/IPython/core/interactiveshell.py&quot;, line 3519, in run_ast_nodes
-    if await self.run_code(code, result, async_=asy):
-  File &quot;/Users/ulye_kak_raz/Desktop/pinn-course/.venv/lib/python3.10/site-packages/IPython/core/interactiveshell.py&quot;, line 3579, in run_code
-    exec(code_obj, self.user_global_ns, self.user_ns)
-  File &quot;/var/folders/qh/w33tqq7j74181hmc1ky5lm080000gn/T/ipykernel_51392/2645131418.py&quot;, line 2, in &lt;module&gt;
-    import torch
-  File &quot;/Users/ulye_kak_raz/Desktop/pinn-course/.venv/lib/python3.10/site-packages/torch/__init__.py&quot;, line 1477, in &lt;module&gt;
-    from .functional import *  # noqa: F403
-  File &quot;/Users/ulye_kak_raz/Desktop/pinn-course/.venv/lib/python3.10/site-packages/torch/functional.py&quot;, line 9, in &lt;module&gt;
-    import torch.nn.functional as F
-  File &quot;/Users/ulye_kak_raz/Desktop/pinn-course/.venv/lib/python3.10/site-packages/torch/nn/__init__.py&quot;, line 1, in &lt;module&gt;
-    from .modules import *  # noqa: F403
-  File &quot;/Users/ulye_kak_raz/Desktop/pinn-course/.venv/lib/python3.10/site-packages/torch/nn/modules/__init__.py&quot;, line 35, in &lt;module&gt;
-    from .transformer import TransformerEncoder, TransformerDecoder, \
-  File &quot;/Users/ulye_kak_raz/Desktop/pinn-course/.venv/lib/python3.10/site-packages/torch/nn/modules/transformer.py&quot;, line 20, in &lt;module&gt;
-    device: torch.device = torch.device(torch._C._get_default_device()),  # torch.device(&#39;cpu&#39;),
-/Users/ulye_kak_raz/Desktop/pinn-course/.venv/lib/python3.10/site-packages/torch/nn/modules/transformer.py:20: UserWarning: Failed to initialize NumPy: _ARRAY_API not found (Triggered internally at /Users/runner/work/pytorch/pytorch/pytorch/torch/csrc/utils/tensor_numpy.cpp:84.)
-  device: torch.device = torch.device(torch._C._get_default_device()),  # torch.device(&#39;cpu&#39;),
-</pre></div>
-</div>
-</div>
 </div>
 <p>We create a function to calculate the analytical solution of the problem. Then we can use this to create syntetic data for training.</p>
 <div class="cell docutils container">
@@ -588,90 +510,7 @@ Traceback (most recent call last):  File &quot;/Library/Frameworks/Python.framew
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">RuntimeError</span><span class="g g-Whitespace">                              </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">5</span><span class="p">],</span> <span class="n">line</span> <span class="mi">15</span>
-<span class="g g-Whitespace">     </span><span class="mi">13</span> <span class="c1"># Plot the sampled points</span>
-<span class="g g-Whitespace">     </span><span class="mi">14</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
-<span class="ne">---&gt; </span><span class="mi">15</span> <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t_vals</span><span class="p">,</span> <span class="n">u_exact</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Exact&quot;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;-&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;steelblue&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">16</span> <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">t_train</span><span class="p">,</span> <span class="n">u_train</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;crimson&quot;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;.&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Data Points&quot;</span><span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">17</span> <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Sampled Data Points&quot;</span><span class="p">)</span>
-
-<span class="nn">File ~/Desktop/pinn-course/.venv/lib/python3.10/site-packages/matplotlib/pyplot.py:3838,</span> in <span class="ni">plot</span><span class="nt">(scalex, scaley, data, *args, **kwargs)</span>
-<span class="g g-Whitespace">   </span><span class="mi">3830</span> <span class="nd">@_copy_docstring_and_deprecators</span><span class="p">(</span><span class="n">Axes</span><span class="o">.</span><span class="n">plot</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">3831</span> <span class="k">def</span><span class="w"> </span><span class="nf">plot</span><span class="p">(</span>
-<span class="g g-Whitespace">   </span><span class="mi">3832</span>     <span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="n">ArrayLike</span> <span class="o">|</span> <span class="nb">str</span><span class="p">,</span>
-   <span class="p">(</span><span class="o">...</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">3836</span>     <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">3837</span> <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">Line2D</span><span class="p">]:</span>
-<span class="ne">-&gt; </span><span class="mi">3838</span>     <span class="k">return</span> <span class="n">gca</span><span class="p">()</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
-<span class="g g-Whitespace">   </span><span class="mi">3839</span>         <span class="o">*</span><span class="n">args</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">3840</span>         <span class="n">scalex</span><span class="o">=</span><span class="n">scalex</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">3841</span>         <span class="n">scaley</span><span class="o">=</span><span class="n">scaley</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">3842</span>         <span class="o">**</span><span class="p">({</span><span class="s2">&quot;data&quot;</span><span class="p">:</span> <span class="n">data</span><span class="p">}</span> <span class="k">if</span> <span class="n">data</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="p">{}),</span>
-<span class="g g-Whitespace">   </span><span class="mi">3843</span>         <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">3844</span>     <span class="p">)</span>
-
-<span class="nn">File ~/Desktop/pinn-course/.venv/lib/python3.10/site-packages/matplotlib/axes/_axes.py:1777,</span> in <span class="ni">Axes.plot</span><span class="nt">(self, scalex, scaley, data, *args, **kwargs)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1534</span><span class="w"> </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="g g-Whitespace">   </span><span class="mi">1535</span><span class="sd"> Plot y versus x as lines and/or markers.</span>
-<span class="g g-Whitespace">   </span><span class="mi">1536</span><span class="sd"> </span>
-<span class="sd">   (...)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1774</span><span class="sd"> (``&#39;green&#39;``) or hex strings (``&#39;#008000&#39;``).</span>
-<span class="g g-Whitespace">   </span><span class="mi">1775</span><span class="sd"> &quot;&quot;&quot;</span>
-<span class="g g-Whitespace">   </span><span class="mi">1776</span> <span class="n">kwargs</span> <span class="o">=</span> <span class="n">cbook</span><span class="o">.</span><span class="n">normalize_kwargs</span><span class="p">(</span><span class="n">kwargs</span><span class="p">,</span> <span class="n">mlines</span><span class="o">.</span><span class="n">Line2D</span><span class="p">)</span>
-<span class="ne">-&gt; </span><span class="mi">1777</span> <span class="n">lines</span> <span class="o">=</span> <span class="p">[</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">_get_lines</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)]</span>
-<span class="g g-Whitespace">   </span><span class="mi">1778</span> <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">:</span>
-<span class="g g-Whitespace">   </span><span class="mi">1779</span>     <span class="bp">self</span><span class="o">.</span><span class="n">add_line</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
-
-<span class="nn">File ~/Desktop/pinn-course/.venv/lib/python3.10/site-packages/matplotlib/axes/_base.py:297,</span> in <span class="ni">_process_plot_var_args.__call__</span><span class="nt">(self, axes, data, return_kwargs, *args, **kwargs)</span>
-<span class="g g-Whitespace">    </span><span class="mi">295</span>     <span class="n">this</span> <span class="o">+=</span> <span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
-<span class="g g-Whitespace">    </span><span class="mi">296</span>     <span class="n">args</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
-<span class="ne">--&gt; </span><span class="mi">297</span> <span class="k">yield from</span> <span class="bp">self</span><span class="o">.</span><span class="n">_plot_args</span><span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">298</span>     <span class="n">axes</span><span class="p">,</span> <span class="n">this</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">,</span> <span class="n">ambiguous_fmt_datakey</span><span class="o">=</span><span class="n">ambiguous_fmt_datakey</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">299</span>     <span class="n">return_kwargs</span><span class="o">=</span><span class="n">return_kwargs</span>
-<span class="g g-Whitespace">    </span><span class="mi">300</span> <span class="p">)</span>
-
-<span class="nn">File ~/Desktop/pinn-course/.venv/lib/python3.10/site-packages/matplotlib/axes/_base.py:483,</span> in <span class="ni">_process_plot_var_args._plot_args</span><span class="nt">(self, axes, tup, kwargs, return_kwargs, ambiguous_fmt_datakey)</span>
-<span class="g g-Whitespace">    </span><span class="mi">480</span>         <span class="n">kw</span><span class="p">[</span><span class="n">prop_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">val</span>
-<span class="g g-Whitespace">    </span><span class="mi">482</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">xy</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
-<span class="ne">--&gt; </span><span class="mi">483</span>     <span class="n">x</span> <span class="o">=</span> <span class="n">_check_1d</span><span class="p">(</span><span class="n">xy</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-<span class="g g-Whitespace">    </span><span class="mi">484</span>     <span class="n">y</span> <span class="o">=</span> <span class="n">_check_1d</span><span class="p">(</span><span class="n">xy</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
-<span class="g g-Whitespace">    </span><span class="mi">485</span> <span class="k">else</span><span class="p">:</span>
-
-<span class="nn">File ~/Desktop/pinn-course/.venv/lib/python3.10/site-packages/matplotlib/cbook.py:1361,</span> in <span class="ni">_check_1d</span><span class="nt">(x)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1359</span><span class="w"> </span><span class="sd">&quot;&quot;&quot;Convert scalars to 1D arrays; pass-through arrays as is.&quot;&quot;&quot;</span>
-<span class="g g-Whitespace">   </span><span class="mi">1360</span> <span class="c1"># Unpack in case of e.g. Pandas or xarray object</span>
-<span class="ne">-&gt; </span><span class="mi">1361</span> <span class="n">x</span> <span class="o">=</span> <span class="n">_unpack_to_numpy</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1362</span> <span class="c1"># plot requires `shape` and `ndim`.  If passed an</span>
-<span class="g g-Whitespace">   </span><span class="mi">1363</span> <span class="c1"># object that doesn&#39;t provide them, then force to numpy array.</span>
-<span class="g g-Whitespace">   </span><span class="mi">1364</span> <span class="c1"># Note this will strip unit information.</span>
-<span class="g g-Whitespace">   </span><span class="mi">1365</span> <span class="k">if</span> <span class="p">(</span><span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="s1">&#39;shape&#39;</span><span class="p">)</span> <span class="ow">or</span>
-<span class="g g-Whitespace">   </span><span class="mi">1366</span>         <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="s1">&#39;ndim&#39;</span><span class="p">)</span> <span class="ow">or</span>
-<span class="g g-Whitespace">   </span><span class="mi">1367</span>         <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">):</span>
-
-<span class="nn">File ~/Desktop/pinn-course/.venv/lib/python3.10/site-packages/matplotlib/cbook.py:2387,</span> in <span class="ni">_unpack_to_numpy</span><span class="nt">(x)</span>
-<span class="g g-Whitespace">   </span><span class="mi">2381</span>         <span class="k">return</span> <span class="n">xtmp</span>
-<span class="g g-Whitespace">   </span><span class="mi">2382</span> <span class="k">if</span> <span class="n">_is_torch_array</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="ow">or</span> <span class="n">_is_jax_array</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="ow">or</span> <span class="n">_is_tensorflow_array</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
-<span class="g g-Whitespace">   </span><span class="mi">2383</span>     <span class="c1"># using np.asarray() instead of explicitly __array__(), as the latter is</span>
-<span class="g g-Whitespace">   </span><span class="mi">2384</span>     <span class="c1"># only _one_ of many methods, and it&#39;s the last resort, see also</span>
-<span class="g g-Whitespace">   </span><span class="mi">2385</span>     <span class="c1"># https://numpy.org/devdocs/user/basics.interoperability.html#using-arbitrary-objects-in-numpy</span>
-<span class="g g-Whitespace">   </span><span class="mi">2386</span>     <span class="c1"># therefore, let arrays do better if they can</span>
-<span class="ne">-&gt; </span><span class="mi">2387</span>     <span class="n">xtmp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">2389</span>     <span class="c1"># In case np.asarray method does not return a numpy array in future</span>
-<span class="g g-Whitespace">   </span><span class="mi">2390</span>     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">xtmp</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
-
-<span class="nn">File ~/Desktop/pinn-course/.venv/lib/python3.10/site-packages/torch/_tensor.py:1062,</span> in <span class="ni">Tensor.__array__</span><span class="nt">(self, dtype)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1060</span>     <span class="k">return</span> <span class="n">handle_torch_function</span><span class="p">(</span><span class="n">Tensor</span><span class="o">.</span><span class="n">__array__</span><span class="p">,</span> <span class="p">(</span><span class="bp">self</span><span class="p">,),</span> <span class="bp">self</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1061</span> <span class="k">if</span> <span class="n">dtype</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-<span class="ne">-&gt; </span><span class="mi">1062</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
-<span class="g g-Whitespace">   </span><span class="mi">1063</span> <span class="k">else</span><span class="p">:</span>
-<span class="g g-Whitespace">   </span><span class="mi">1064</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">dtype</span><span class="p">,</span> <span class="n">copy</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-
-<span class="ne">RuntimeError</span>: Numpy is not available
-</pre></div>
-</div>
-<img alt="../_images/d856e7a2d46d9143ee449661d4a8dcae2ef88943864db26fbaf8c253ab6cee48.png" src="../_images/d856e7a2d46d9143ee449661d4a8dcae2ef88943864db26fbaf8c253ab6cee48.png" />
+<img alt="../_images/30c3ecc2c3aec15ccfb37ece4921164062b61d1b34fac0cc4f2ee7011e841f9c.png" src="../_images/30c3ecc2c3aec15ccfb37ece4921164062b61d1b34fac0cc4f2ee7011e841f9c.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -767,10 +606,8 @@ L_u = \frac{1}{N_u}\sum_{i=1}^{N_u} ({u_\theta(t^i) - u^i})^2
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/7ce70856c171d4f61a0ea8dd0ba6754ea6cc54b5aed0ef3e4802261f97bf0dd8.png" src="../_images/7ce70856c171d4f61a0ea8dd0ba6754ea6cc54b5aed0ef3e4802261f97bf0dd8.png" />
-<img alt="../_images/5f62295612c207189b77d236def06672cdfd626758946c04c3cf172329c04e55.png" src="../_images/5f62295612c207189b77d236def06672cdfd626758946c04c3cf172329c04e55.png" />
-<img alt="../_images/26e43b4ce47af96db5ad508cb5a08be321bb46c9156f3e68f391bb6cd3ca658d.png" src="../_images/26e43b4ce47af96db5ad508cb5a08be321bb46c9156f3e68f391bb6cd3ca658d.png" />
-<img alt="../_images/5bc803c570c90db7895f91830d94fbc927c7b65999b1ba5854113ee7a63434df.png" src="../_images/5bc803c570c90db7895f91830d94fbc927c7b65999b1ba5854113ee7a63434df.png" />
+<img alt="../_images/17c81f0acfff72688a8226c72f45beee1c655fb00d76dd48f14b1c6082cba09d.png" src="../_images/17c81f0acfff72688a8226c72f45beee1c655fb00d76dd48f14b1c6082cba09d.png" />
+<img alt="../_images/ac2b5b2dd541eca7222fd10a9692826871b896c30f381d6b0435bc43d7ce246c.png" src="../_images/ac2b5b2dd541eca7222fd10a9692826871b896c30f381d6b0435bc43d7ce246c.png" />
 </div>
 </div>
 <p>Network clearly has some troubles predicting the next time steps. We will now incorporate the known physics into the training and see the results. The new network will be very similar to the regular neural network we just defined, but the loss function will be regularized by the governing ODE as well. For this we need to sample extra input points to evaluate the ODE at. The known displacements at these time steps will not be used in the training. Therefore this extra term is unsupervised.</p>
